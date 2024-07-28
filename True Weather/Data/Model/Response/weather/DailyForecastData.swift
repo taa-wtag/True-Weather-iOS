@@ -1,11 +1,5 @@
-//
-//  DailyForecastData.swift
-//  True Weather
-//
-//  Created by Tasnim Ferdous on 7/26/24.
-//
-
 import Foundation
+
 struct DailyForecastData: Decodable, Identifiable {
     var id: Int { dateEpoch ?? 0 }
     let dateString: String?
