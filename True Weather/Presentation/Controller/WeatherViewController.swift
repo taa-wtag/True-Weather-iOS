@@ -1,7 +1,7 @@
 import UIKit
 import Alamofire
 
-class ViewController: UIViewController {
+class WeatherViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

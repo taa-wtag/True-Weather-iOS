@@ -1,7 +1,7 @@
 import Foundation
 import RealmSwift
 
-class HourlyWeatherItem: Object{
+class HourlyWeatherItem: Object {
     @Persisted var timeEpoch: Date?
     @Persisted var timeString: String?
     @Persisted var tempC: Double?

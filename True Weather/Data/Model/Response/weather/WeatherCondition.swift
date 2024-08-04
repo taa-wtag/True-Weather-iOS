@@ -1,6 +1,6 @@
 import Foundation
 
-struct WeatherCondition: Decodable{
+struct WeatherCondition: Decodable {
     let icon: String?
     let text: String?
 }

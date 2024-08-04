@@ -1,9 +1,9 @@
 import Foundation
 
-struct ForecastData: Decodable{
+struct ForecastData: Decodable {
     let dailyForecastDataList: [DailyForecastData]?
-    
-    private enum CodingKeys : String, CodingKey {
+
+    private enum CodingKeys: String, CodingKey {
         case dailyForecastDataList = "forecastday"
     }
 }

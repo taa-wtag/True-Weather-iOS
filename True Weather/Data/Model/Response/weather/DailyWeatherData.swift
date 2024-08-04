@@ -1,6 +1,6 @@
 import Foundation
 
-struct DailyWeatherData: Decodable{
+struct DailyWeatherData: Decodable {
     let avgHumidity: Int?
     let avgTempC: Double?
     let avgTempF: Double?
@@ -13,8 +13,8 @@ struct DailyWeatherData: Decodable{
     let maxWindMph: Double?
     let minTempC: Double?
     let minTempF: Double?
-    
-    private enum CodingKeys : String, CodingKey {
+
+    private enum CodingKeys: String, CodingKey {
         case avgHumidity = "avghumidity"
         case avgTempC = "avgtemp_c"
         case avgTempF = "avgtemp_f"
@@ -28,5 +28,4 @@ struct DailyWeatherData: Decodable{
         case minTempC = "mintemp_c"
         case minTempF = "mintemp_f"
     }
-    
 }
