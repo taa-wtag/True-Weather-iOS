@@ -1,7 +1,7 @@
 import Foundation
 import RealmSwift
 
-class DailyWeatherItem: Object{
+class DailyWeatherItem: Object {
     @Persisted var dateEpoch: Date?
     @Persisted var dateString: String?
     @Persisted var minTempC: Double?
