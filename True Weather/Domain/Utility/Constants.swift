@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 struct Constants {
 
@@ -35,5 +36,9 @@ struct Constants {
         static let DeepGolden = "DeepGolden"
         static let LightGolden = "LightGolden"
         static let White = "WhiteNew"
+    }
+
+    static var sizeMagnifier: CGFloat {
+        return UIScreen.main.bounds.size.width / 375.0
     }
 }

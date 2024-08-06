@@ -31,6 +31,8 @@ class WeatherViewController: UIViewController {
                 UINib(nibName: Constants.CellIdentifiers.DailyWeather, bundle: nil),
                 forCellReuseIdentifier: Constants.CellIdentifiers.DailyWeather
             )
+        let maxHeight = cityCollectionView.heightAnchor.constraint(equalToConstant: cityPageHeight + 20.0)
+        maxHeight.isActive = true
     }
 }
 
@@ -59,7 +61,7 @@ extension WeatherViewController: UICollectionViewDataSource {
                 withReuseIdentifier: Constants.CellIdentifiers.CityPage,
                 for: indexPath
             )
-        cell.layer.cornerRadius = 20
+        cell.layer.cornerRadius = cityPageCornerRadius
         return cell
     }
 }
@@ -70,7 +72,7 @@ extension WeatherViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        return CGSize(width: 300, height: 200)
+        return CGSize(width: cityPageWidth, height: cityPageHeight)
     }
 
     func collectionView(
@@ -78,7 +80,7 @@ extension WeatherViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         insetForSectionAt section: Int
     ) -> UIEdgeInsets {
-        UIEdgeInsets(top: 10.0, left: 20.0, bottom: 10.0, right: 20.0)
+        UIEdgeInsets(top: 10.0, left: cityPageInsetSide, bottom: 10.0, right: cityPageInsetSide)
     }
 
     func collectionView(
@@ -86,19 +88,17 @@ extension WeatherViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         minimumLineSpacingForSectionAt section: Int
     ) -> CGFloat {
-        return 50.0
+        return cityPageInterimSpacing
     }
 }
 
 extension WeatherViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
-        case 0, 2:
-            return 70.0
         case 1:
-            return 120.0
+            return hourlyCollectionHeight
         default:
-            return 50.0
+            return UITableView.automaticDimension
         }
     }
 }
@@ -163,4 +163,31 @@ extension UICollectionView {
            )
        }
    }
+}
+
+extension WeatherViewController {
+
+    private var cityPageCornerRadius: CGFloat {
+        return 18 * Constants.sizeMagnifier
+    }
+
+    private var cityPageWidth: CGFloat {
+        return 330 * Constants.sizeMagnifier
+    }
+
+    private var cityPageHeight: CGFloat {
+        return 200 * Constants.sizeMagnifier
+    }
+
+    private var cityPageInsetSide: CGFloat {
+        return 22.5 * Constants.sizeMagnifier
+    }
+
+    private var cityPageInterimSpacing: CGFloat {
+        return cityPageInsetSide * 2
+    }
+
+    private var hourlyCollectionHeight: CGFloat {
+        return 120 * Constants.sizeMagnifier
+    }
 }

@@ -5,8 +5,6 @@ class CityViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let screenSize: CGRect = UIScreen.main.bounds
-        print(screenSize)
         self.collectionView!
             .register(
                 UINib(nibName: reuseIdentifier, bundle: nil),
@@ -31,8 +29,18 @@ class CityViewController: UICollectionViewController {
                 withReuseIdentifier: reuseIdentifier,
                 for: indexPath
             )
-        cell.layer.cornerRadius = 15
+        cell.layer.cornerRadius = cellCornerRadius
         return cell
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.Segues.ShowCitySearch,
+           let citySearchVC = segue.destination as? CitySearchViewController {
+            if let sheet = citySearchVC.sheetPresentationController {
+                sheet.detents = [.medium()]
+                sheet.preferredCornerRadius = sheetCornerRadius
+            }
+        }
     }
 }
 
@@ -42,7 +50,7 @@ extension CityViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        return CGSize(width: 180, height: 220)
+        return CGSize(width: cellWidth, height: cellHeight)
     }
 
     func collectionView(
@@ -50,6 +58,40 @@ extension CityViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         insetForSectionAt section: Int
     ) -> UIEdgeInsets {
-        UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
+        UIEdgeInsets(top: topInsets, left: sideInsets, bottom: topInsets, right: sideInsets)
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumLineSpacingForSectionAt section: Int
+    ) -> CGFloat {
+        sideInsets
+    }
+}
+
+extension CityViewController {
+    private var cellHeight: CGFloat {
+        return 198 * Constants.sizeMagnifier
+    }
+
+    private var cellWidth: CGFloat {
+        return 162 * Constants.sizeMagnifier
+    }
+
+    private var topInsets: CGFloat {
+        return 20 * Constants.sizeMagnifier
+    }
+
+    private var sideInsets: CGFloat {
+        return 17 * Constants.sizeMagnifier
+    }
+
+    private var cellCornerRadius: CGFloat {
+        return 15 * Constants.sizeMagnifier
+    }
+
+    private var sheetCornerRadius: CGFloat {
+        return 20 * Constants.sizeMagnifier
     }
 }

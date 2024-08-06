@@ -6,6 +6,12 @@ class HourlyWeatherCell: UICollectionViewCell {
     @IBOutlet weak var conditionLabel: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        timeLabel.font = conditionLabel.font.withSize(labelFontSize)
+        conditionLabel.font = conditionLabel.font.withSize(labelFontSize)
+    }
+
     func configure (weather: HourlyWeatherItem, isFirst: Bool = false) {
         timeLabel.text = weather.timeString?.components(separatedBy: " ").last
         conditionLabel.text = weather.conditionText
@@ -21,5 +27,11 @@ class HourlyWeatherCell: UICollectionViewCell {
             conditionLabel.textColor = UIColor(named: Constants.Colors.LightGrey)
             self.backgroundColor = UIColor(named: Constants.Colors.White)
         }
+    }
+}
+
+extension HourlyWeatherCell {
+    private var labelFontSize: CGFloat {
+        return 12 * Constants.sizeMagnifier
     }
 }

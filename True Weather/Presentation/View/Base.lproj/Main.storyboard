@@ -34,10 +34,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="XRp-g0-N1w">
-                                <rect key="frame" x="0.0" y="103" width="430" height="220"/>
+                                <rect key="frame" x="0.0" y="103" width="430" height="200"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="220" id="maQ-5U-Zz4"/>
+                                    <constraint firstAttribute="height" priority="999" constant="200" id="maQ-5U-Zz4"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Xrl-JH-29j">
                                     <size key="itemSize" width="300" height="200"/>
@@ -47,8 +47,8 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="1000" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="xWo-PY-I7C">
-                                <rect key="frame" x="0.0" y="323" width="430" height="575"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="1000" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="xWo-PY-I7C">
+                                <rect key="frame" x="0.0" y="303" width="430" height="595"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -65,7 +65,8 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Weather" id="uaJ-HK-B0j">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Kx0-60-GUP">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="location.circle" catalog="system" id="rAc-k5-r64"/>
+                        <barButtonItem key="rightBarButtonItem" title="Cities" image="chevron.forward" catalog="system" id="Kx0-60-GUP">
                             <connections>
                                 <segue destination="STj-oO-7F0" kind="show" identifier="ShowCities" id="5Oc-yp-lcC"/>
                             </connections>
@@ -84,7 +85,7 @@
         <scene sceneID="bBb-b2-hV5">
             <objects>
                 <collectionViewController title="Cities" id="STj-oO-7F0" customClass="CityViewController" customModule="True_Weather" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="7bJ-jb-Ml8">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="7bJ-jb-Ml8">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -116,21 +117,24 @@
         <scene sceneID="QP1-g6-NZA">
             <objects>
                 <tableViewController title="City Search" id="38w-nW-aIo" customClass="CitySearchViewController" customModule="True_Weather" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="0On-ak-TdT">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" id="0On-ak-TdT">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="922"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="yVO-fh-TTY">
-                            <rect key="frame" x="0.0" y="0.0" width="430" height="44"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" placeholder="Search Cities..." showsCancelButton="YES" id="yVO-fh-TTY">
+                            <rect key="frame" x="0.0" y="0.0" width="430" height="56"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
+                            <scopeButtonTitles>
+                                <string>Title</string>
+                                <string>Title</string>
+                            </scopeButtonTitles>
                             <connections>
                                 <outlet property="delegate" destination="38w-nW-aIo" id="ekz-Qt-4DC"/>
                             </connections>
                         </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchCityCell" id="PgT-dY-Plw">
-                                <rect key="frame" x="0.0" y="94" width="430" height="43.666667938232422"/>
+                                <rect key="frame" x="0.0" y="106" width="430" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PgT-dY-Plw" id="aYm-Dv-43Q">
                                     <rect key="frame" x="0.0" y="0.0" width="430" height="43.666667938232422"/>
@@ -143,6 +147,10 @@
                             <outlet property="delegate" destination="38w-nW-aIo" id="EOd-g1-oBS"/>
                         </connections>
                     </tableView>
+                    <size key="freeformSize" width="430" height="932"/>
+                    <connections>
+                        <outlet property="searchBar" destination="yVO-fh-TTY" id="njj-GT-hg2"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lIf-3N-eNE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -150,6 +158,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="chevron.forward" catalog="system" width="97" height="128"/>
+        <image name="location.circle" catalog="system" width="128" height="123"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
