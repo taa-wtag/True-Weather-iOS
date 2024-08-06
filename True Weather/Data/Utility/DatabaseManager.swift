@@ -83,7 +83,7 @@ class DatabaseManager: DatabaseManagerProtocol {
     }
 
     func deleteAll<T: Object>(_ type: T.Type) {
-        if let types = getAll(type){
+        if let types = getAll(type) {
             deleteAll(types)
         }
     }

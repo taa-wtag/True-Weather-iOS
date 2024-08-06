@@ -1,93 +1,152 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ave-bd-emD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Pba-aW-ki5">
     <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
-        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Weather View Controller-->
-        <scene sceneID="N8s-r8-riy">
-            <objects>
-                <viewController id="n7M-XQ-wBv" customClass="WeatherViewController" customModule="True_Weather" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="hXD-Jc-RKr">
-                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="FlZ-L0-BvD"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ywd-gg-j8m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-569" y="186"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="NZa-3F-Ovf">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hS1-fk-PLL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController id="Pba-aW-ki5" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Y3m-ls-gS3">
                         <rect key="frame" x="0.0" y="59" width="430" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="STj-oO-7F0" kind="relationship" relationship="rootViewController" id="ref-ER-yAV"/>
+                        <segue destination="c6B-JD-i4l" kind="relationship" relationship="rootViewController" id="Y5t-AE-I5A"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hS1-fk-PLL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-569" y="-642"/>
+            <point key="canvasLocation" x="-2253" y="-485"/>
         </scene>
-        <!--Split View Controller-->
-        <scene sceneID="ftX-bV-RnD">
+        <!--Weather-->
+        <scene sceneID="zmJ-ac-zdl">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="J1H-T9-gug" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <splitViewController allowDoubleColumnStyle="YES" primaryBackgroundStyle="sidebar" id="Ave-bd-emD" sceneMemberID="viewController">
+                <viewController title="Weather" id="c6B-JD-i4l" customClass="WeatherViewController" customModule="True_Weather" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Rc1-50-7HD">
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="XRp-g0-N1w">
+                                <rect key="frame" x="0.0" y="103" width="430" height="220"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="220" id="maQ-5U-Zz4"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Xrl-JH-29j">
+                                    <size key="itemSize" width="300" height="200"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="1000" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="xWo-PY-I7C">
+                                <rect key="frame" x="0.0" y="323" width="430" height="575"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Lnh-yn-kxl"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Lnh-yn-kxl" firstAttribute="bottom" secondItem="xWo-PY-I7C" secondAttribute="bottom" id="2Mg-9P-ek7"/>
+                            <constraint firstItem="xWo-PY-I7C" firstAttribute="top" secondItem="XRp-g0-N1w" secondAttribute="bottom" id="YsJ-1b-Xzb"/>
+                            <constraint firstItem="xWo-PY-I7C" firstAttribute="trailing" secondItem="Lnh-yn-kxl" secondAttribute="trailing" id="i8t-rm-vIS"/>
+                            <constraint firstItem="XRp-g0-N1w" firstAttribute="trailing" secondItem="Lnh-yn-kxl" secondAttribute="trailing" id="jiT-uG-iUe"/>
+                            <constraint firstItem="XRp-g0-N1w" firstAttribute="top" secondItem="Lnh-yn-kxl" secondAttribute="top" id="kLn-90-xhn"/>
+                            <constraint firstItem="XRp-g0-N1w" firstAttribute="leading" secondItem="Lnh-yn-kxl" secondAttribute="leading" id="qe9-vL-raG"/>
+                            <constraint firstItem="xWo-PY-I7C" firstAttribute="leading" secondItem="Lnh-yn-kxl" secondAttribute="leading" id="weR-CC-YAs"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Weather" id="uaJ-HK-B0j">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Kx0-60-GUP">
+                            <connections>
+                                <segue destination="STj-oO-7F0" kind="show" identifier="ShowCities" id="5Oc-yp-lcC"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <segue destination="Pba-aW-ki5" kind="relationship" relationship="masterViewController" id="HkX-kZ-GWh"/>
-                        <segue destination="n7M-XQ-wBv" kind="relationship" relationship="detailViewController" id="KK5-0X-3fn"/>
+                        <outlet property="cityCollectionView" destination="XRp-g0-N1w" id="AtH-D5-yRF"/>
+                        <outlet property="weatherTableView" destination="xWo-PY-I7C" id="lGM-gC-qhh"/>
                     </connections>
-                </splitViewController>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xkZ-WB-vtR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1448" y="-235"/>
+            <point key="canvasLocation" x="-1273" y="-485"/>
         </scene>
-        <!--City View Controller-->
+        <!--Cities-->
         <scene sceneID="bBb-b2-hV5">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fDZ-Sx-rTy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <collectionViewController id="STj-oO-7F0" customClass="CityViewController" customModule="True_Weather" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController title="Cities" id="STj-oO-7F0" customClass="CityViewController" customModule="True_Weather" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="7bJ-jb-Ml8">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ghb-2p-fQU">
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ghb-2p-fQU">
                             <size key="itemSize" width="128" height="128"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="vYe-NQ-7mq">
-                                <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="2F0-i2-qEo">
-                                    <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </collectionViewCellContentView>
-                            </collectionViewCell>
-                        </cells>
+                        <cells/>
                         <connections>
                             <outlet property="dataSource" destination="STj-oO-7F0" id="AbG-SP-TCo"/>
                             <outlet property="delegate" destination="STj-oO-7F0" id="It5-Sa-Tjr"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="3uS-en-Wds"/>
+                    <navigationItem key="navigationItem" title="Cities" id="3uS-en-Wds">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Tex-q1-hHB">
+                            <connections>
+                                <segue destination="38w-nW-aIo" kind="presentation" identifier="ShowCitySearch" id="b7a-cz-fy4"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fDZ-Sx-rTy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="500" y="-642"/>
+            <point key="canvasLocation" x="-201" y="-485"/>
+        </scene>
+        <!--City Search-->
+        <scene sceneID="QP1-g6-NZA">
+            <objects>
+                <tableViewController title="City Search" id="38w-nW-aIo" customClass="CitySearchViewController" customModule="True_Weather" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="0On-ak-TdT">
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="922"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="yVO-fh-TTY">
+                            <rect key="frame" x="0.0" y="0.0" width="430" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="38w-nW-aIo" id="ekz-Qt-4DC"/>
+                            </connections>
+                        </searchBar>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchCityCell" id="PgT-dY-Plw">
+                                <rect key="frame" x="0.0" y="94" width="430" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PgT-dY-Plw" id="aYm-Dv-43Q">
+                                    <rect key="frame" x="0.0" y="0.0" width="430" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="38w-nW-aIo" id="85g-iJ-MMZ"/>
+                            <outlet property="delegate" destination="38w-nW-aIo" id="EOd-g1-oBS"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lIf-3N-eNE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="939" y="-485"/>
         </scene>
     </scenes>
     <resources>

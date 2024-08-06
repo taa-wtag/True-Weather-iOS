@@ -16,5 +16,5 @@ class DailyWeatherItem: Object {
     @Persisted var maxWindMph: Double?
     @Persisted var avgHumidity: Int?
     @Persisted var conditionText: String?
-    @Persisted var imageUrl: String?
+    @Persisted var image: Data?
 }
