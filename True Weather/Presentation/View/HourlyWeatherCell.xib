@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HourlyWeatherCell" id="gTV-IL-0wX" customClass="HourlyWeatherCell" customModule="True_Weather" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="60" height="110"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="60" height="110"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="j5I-aN-amE">
+                        <rect key="frame" x="0.0" y="10" width="60" height="90"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1" text="02:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bSt-ck-DXi">
+                                <rect key="frame" x="0.0" y="0.0" width="60" height="14.333333333333334"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
+                                <color key="textColor" name="LightGrey"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="ETZ-bD-t0E">
+                                <rect key="frame" x="0.0" y="19.333333333333329" width="60.666666666666671" height="51.666666666666657"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
+                                </accessibility>
+                                <imageReference key="image" image="cloud.sun.rain.fill" catalog="system" symbolScale="small" variableValue="0.80000000000000004"/>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1" text="Blizzard" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e8q-Hh-fcR">
+                                <rect key="frame" x="0.0" y="75.666666666666671" width="60" height="14.333333333333329"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
+                                <color key="textColor" name="LightGrey"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <color key="backgroundColor" name="White"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="j5I-aN-amE" secondAttribute="bottom" constant="10" id="8KF-uy-CeT"/>
+                <constraint firstItem="j5I-aN-amE" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="E6w-Hr-xqc"/>
+                <constraint firstItem="j5I-aN-amE" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="dfo-vZ-YnR"/>
+                <constraint firstAttribute="trailing" secondItem="j5I-aN-amE" secondAttribute="trailing" id="eEK-wQ-0NF"/>
+            </constraints>
+            <size key="customSize" width="162" height="212"/>
+            <connections>
+                <outlet property="conditionLabel" destination="e8q-Hh-fcR" id="ODy-px-yeN"/>
+                <outlet property="iconImageView" destination="ETZ-bD-t0E" id="itV-d5-qlU"/>
+                <outlet property="timeLabel" destination="bSt-ck-DXi" id="PFS-io-y33"/>
+            </connections>
+            <point key="canvasLocation" x="215.26717557251908" y="45.774647887323944"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="cloud.sun.rain.fill" catalog="system" width="126" height="128"/>
+        <namedColor name="LightGrey">
+            <color red="0.61960784313725492" green="0.61960784313725492" blue="0.61960784313725492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="White">
+            <color red="0.99999994039535522" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

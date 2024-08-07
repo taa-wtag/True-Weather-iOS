@@ -18,7 +18,6 @@ extension HourlyWeatherData {
         currentWeather.humidity = humidity
         currentWeather.isDay = isDay
         currentWeather.conditionText = weatherCondition?.text
-        currentWeather.imageUrl = "https:\(weatherCondition?.icon ?? "")"
         return currentWeather
     }
 }
@@ -50,7 +49,6 @@ extension DailyForecastData {
         weatherToday.maxWindMph = dailyWeatherData?.maxWindMph
         weatherToday.avgHumidity = dailyWeatherData?.avgHumidity
         weatherToday.conditionText = dailyWeatherData?.weatherCondition?.text
-        weatherToday.imageUrl = "https:\(dailyWeatherData?.weatherCondition?.icon ?? "")"
         return weatherToday
     }
 }
