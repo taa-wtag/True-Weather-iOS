@@ -34,6 +34,8 @@ class WeatherViewController: UIViewController {
         let maxHeight = cityCollectionView.heightAnchor.constraint(equalToConstant: cityPageHeight + 20.0)
         maxHeight.isActive = true
     }
+    @IBAction func getLocationButtonAction(_ sender: UIBarButtonItem) {
+    }
 }
 
 extension WeatherViewController: UICollectionViewDelegate {

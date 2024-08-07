@@ -65,7 +65,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Weather" id="uaJ-HK-B0j">
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="location.circle" catalog="system" id="rAc-k5-r64"/>
+                        <barButtonItem key="leftBarButtonItem" title="GetLocationButton" image="location.circle" catalog="system" id="rAc-k5-r64">
+                            <connections>
+                                <action selector="getLocationButtonAction:" destination="c6B-JD-i4l" id="hiT-Ux-fyC"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Cities" image="chevron.forward" catalog="system" id="Kx0-60-GUP">
                             <connections>
                                 <segue destination="STj-oO-7F0" kind="show" identifier="ShowCities" id="5Oc-yp-lcC"/>
