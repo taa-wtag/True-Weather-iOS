@@ -10,6 +10,7 @@ protocol WeatherViewModelDelegate: AnyObject {
 class WeatherViewModel {
     private let cityService: CityServiceProtocol
     private let weatherService: WeatherServiceProtocol
+    private let locationService: LocationServiceProtocol
 
     private var isFirstTimeLoad = true
 
@@ -33,6 +34,7 @@ class WeatherViewModel {
     var currentWeather: HourlyWeatherItem? {
         didSet {
             delegate?.didUpdateCurrentWeather()
+            delegate?.didUpdateCurrentCity()
         }
     }
 
@@ -49,11 +51,14 @@ class WeatherViewModel {
     init(
         cityService: CityService = CityService.shared,
         weatherService: WeatherService = WeatherService.shared,
+        locationService: LocationService = LocationService.shared,
         delegate: WeatherViewModelDelegate? = nil
     ) {
         self.cityService = cityService
         self.weatherService = weatherService
+        self.locationService = locationService
         self.delegate = delegate
+        locationService.delegate = self
     }
 
     func getAllCities() {
@@ -166,6 +171,30 @@ class WeatherViewModel {
                     .sorted { DateUtil.dateComparator($0, $1) }
                     .filter { DateUtil.isFutureDate($0) }
                 completion(hourlyWeatherList, dailyWeatherList)
+            }
+        }
+    }
+
+    func getCurrentLocation() {
+        locationService.requestAuthorization()
+        if locationService.isAuthorized() {
+            locationService.requestLocationOnce()
+        }
+    }
+}
+
+extension WeatherViewModel: LocationServiceDelegate {
+    func didFetchLocation(latitude: Double, longitude: Double) {
+        cityService.getCityNameFromLocation(from: (latitude: latitude, longitude: longitude)) { [weak self] _, data in
+            let cityName = "\(data?.first?.cityName ?? ""), \(data?.first?.countryName ?? "")"
+            self?.cityService.getCity(name: cityName) { cityItem in
+                if cityItem == nil {
+                    let city = CityItem()
+                    city.cityName = cityName
+                    city.backgroundColor = Int.random(in: 0..<6)
+                    self?.cityService.addCity(city: city)
+                    self?.getAllCities()
+                }
             }
         }
     }

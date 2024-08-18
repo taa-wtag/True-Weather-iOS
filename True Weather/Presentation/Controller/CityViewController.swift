@@ -36,7 +36,8 @@ class CityViewController: UICollectionViewController {
             cityItemCell.isDeleteButtonHidden = viewModel?.isDeleteButtonHidden ?? true
             cityItemCell.configure(
                 with: cityItem,
-                weather: viewModel?.currentWeatherList[cityItem.cityName ?? ""] ?? HourlyWeatherItem()
+                weather: viewModel?.currentWeatherList[cityItem.cityName ?? ""] ?? HourlyWeatherItem(),
+                NetworkRequestService.sharedInstance
             )
             cityItemCell.deleteThisCell = { [weak self] in
                 self?.viewModel?.deleteCity(at: indexPath.row)

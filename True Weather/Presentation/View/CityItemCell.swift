@@ -36,14 +36,14 @@ class CityItemCell: UICollectionViewCell {
         deleteButton.isHidden = isDeleteButtonHidden
     }
 
-    func configure (with city: CityItem, weather: HourlyWeatherItem) {
+    func configure (with city: CityItem, weather: HourlyWeatherItem, _ service: NetworkRequestServiceProtocol) {
         cityLabel.text = city.cityName?.components(separatedBy: ", ").first
         countryLabel.text = city.cityName?.components(separatedBy: ", ").last
         itemBackgroundImageView.image = UIImage(named: "city_item_background_\(city.backgroundColor ?? 0)")
-        conditionLabel.text = weather.conditionText
+        conditionLabel.text = WeatherUtil.getShortCondition(from: weather.conditionText ?? "")
         temperatureLabel.text = "\(weather.tempC ?? 0.00)°"
-        if let imageData = weather.image {
-            iconImageView.image = UIImage(data: imageData)
+        service.request(weather.imageUrl ?? "") { [weak self] _, data in
+            self?.iconImageView.image = data
         }
     }
 

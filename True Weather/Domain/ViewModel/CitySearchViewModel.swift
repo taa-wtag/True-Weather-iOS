@@ -32,11 +32,16 @@ class CitySearchViewModel {
     }
 
     func addCity(withIndex index: Int) {
-        let cityItem = CityItem()
-        cityItem.cityName = cityArray[index]
-        cityItem.backgroundColor = Int.random(in: 0..<6)
-        service.addCity(city: cityItem)
-        delegate?.didFinishAddingCity()
+        let cityName = cityArray[index]
+        service.getCity(name: cityName) { [weak self] city in
+            if city == nil {
+                let cityItem = CityItem()
+                cityItem.cityName = cityName
+                cityItem.backgroundColor = Int.random(in: 0..<6)
+                self?.service.addCity(city: cityItem)
+                self?.delegate?.didFinishAddingCity()
+            }
+        }
     }
 
     private func citySuggestionsToCityList(suggestions: [CitySuggestion]) -> [String] {

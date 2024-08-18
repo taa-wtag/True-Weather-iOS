@@ -43,6 +43,7 @@ class WeatherViewController: UIViewController {
     }
 
     @IBAction func getLocationButtonAction(_ sender: UIBarButtonItem) {
+        viewModel?.getCurrentLocation()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -86,7 +87,8 @@ extension WeatherViewController: UICollectionViewDataSource {
         if let city = viewModel?.cityList[indexPath.row] {
             (cell as? CityPageCell)?.configure(
                 with: city,
-                weather: WeatherUtil.getCurrentWeather(from: city.weatherEveryHour) ?? HourlyWeatherItem()
+                weather: WeatherUtil.getCurrentWeather(from: city.weatherEveryHour) ?? HourlyWeatherItem(),
+                NetworkRequestService.sharedInstance
             )
         }
         return cell
@@ -161,7 +163,8 @@ extension WeatherViewController: UITableViewDataSource {
                     for: indexPath
                 )
             (cell as? DailyWeatherCell)?.configure(
-                weather: viewModel?.dailyWeatherList[indexPath.row-3] ?? DailyWeatherItem()
+                weather: viewModel?.dailyWeatherList[indexPath.row-3] ?? DailyWeatherItem(),
+                NetworkRequestService.sharedInstance
             )
             return cell
         }

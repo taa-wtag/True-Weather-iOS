@@ -12,11 +12,11 @@ class HourlyWeatherCell: UICollectionViewCell {
         conditionLabel.font = conditionLabel.font.withSize(labelFontSize)
     }
 
-    func configure (weather: HourlyWeatherItem, isFirst: Bool = false) {
+    func configure (weather: HourlyWeatherItem, isFirst: Bool = false, _ service: NetworkRequestServiceProtocol) {
         timeLabel.text = weather.timeString?.components(separatedBy: " ").last
-        conditionLabel.text = weather.conditionText
-        if let imageData = weather.image {
-            iconImageView.image = UIImage(data: imageData)
+        conditionLabel.text = WeatherUtil.getShortCondition(from: weather.conditionText ?? "")
+        service.request(weather.imageUrl ?? "") { [weak self] _, data in
+            self?.iconImageView.image = data
         }
         if isFirst {
             timeLabel.textColor = UIColor(named: Constants.Colors.DeepGolden)

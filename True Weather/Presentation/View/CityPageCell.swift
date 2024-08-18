@@ -21,17 +21,22 @@ class CityPageCell: UICollectionViewCell {
         conditionLabel.font = conditionLabel.font.withSize(conditionLabelFontSize)
     }
 
-    func configure (with city: CityItem, weather: HourlyWeatherItem, isCelcius: Bool = false) {
+    func configure (
+        with city: CityItem,
+        weather: HourlyWeatherItem,
+        isCelcius: Bool = false,
+        _ service: NetworkRequestServiceProtocol
+    ) {
         if let date = weather.timeString {
             dateLabel.text = DateUtil.getFullDate(from: date)
         }
         cityLabel.text = city.cityName?.components(separatedBy: ", ").first
         countryLabel.text = city.cityName?.components(separatedBy: ", ").last
         pageBackgroundImageView.image = UIImage(named: "city_page_background_\(city.backgroundColor ?? 0)")
-        conditionLabel.text = weather.conditionText
+        conditionLabel.text = WeatherUtil.getMediumCondition(from: weather.conditionText ?? "")
         temperatureLabel.text = "\(weather.tempC ?? 0.00)"
-        if let imageData = weather.image {
-            iconImageView.image = UIImage(data: imageData)
+        service.request(weather.imageUrl ?? "") { [weak self] _, data in
+            self?.iconImageView.image = data
         }
     }
 }

@@ -60,6 +60,7 @@
 		46737B1A2C61103200801AF6 /* HeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46737B182C61103200801AF6 /* HeaderTableViewCell.swift */; };
 		46737B1B2C61103200801AF6 /* HeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46737B192C61103200801AF6 /* HeaderTableViewCell.xib */; };
 		4674398A2C71AF8300514DB0 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467439892C71AF8300514DB0 /* LocationService.swift */; };
+		4674398F2C71CCEC00514DB0 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 4674398E2C71CCEC00514DB0 /* AlamofireImage */; };
 		469A0B282C69B58B0064B91F /* CitySearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469A0B272C69B58B0064B91F /* CitySearchViewModel.swift */; };
 		469A0B2A2C6A0C9F0064B91F /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469A0B292C6A0C9F0064B91F /* DateUtil.swift */; };
 		469A0B2C2C6A0EFC0064B91F /* ViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469A0B2B2C6A0EFC0064B91F /* ViewModelFactory.swift */; };
@@ -133,6 +134,7 @@
 			files = (
 				466C455B2C535B7700777A69 /* RealmSwift in Frameworks */,
 				466C45582C535AF200777A69 /* Alamofire in Frameworks */,
+				4674398F2C71CCEC00514DB0 /* AlamofireImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,6 +376,7 @@
 			packageProductDependencies = (
 				466C45572C535AF200777A69 /* Alamofire */,
 				466C455A2C535B7700777A69 /* RealmSwift */,
+				4674398E2C71CCEC00514DB0 /* AlamofireImage */,
 			);
 			productName = "True Weather";
 			productReference = 466C453F2C535A0000777A69 /* True Weather.app */;
@@ -406,6 +409,7 @@
 			packageReferences = (
 				466C45562C535AF200777A69 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				466C45592C535B7700777A69 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				4674398D2C71CCEC00514DB0 /* XCRemoteSwiftPackageReference "AlamofireImage" */,
 			);
 			productRefGroup = 466C45402C535A0000777A69 /* Products */;
 			projectDirPath = "";
@@ -585,7 +589,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -642,7 +646,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -664,11 +668,14 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "True Weather/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "True Weather";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app needs to know your current location to use this feature.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app needs to know your current location to use this feature.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -694,11 +701,14 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "True Weather/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "True Weather";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app needs to know your current location to use this feature.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app needs to know your current location to use this feature.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -752,6 +762,14 @@
 				kind = branch;
 			};
 		};
+		4674398D2C71CCEC00514DB0 /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/AlamofireImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.3.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -764,6 +782,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 466C45592C535B7700777A69 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		4674398E2C71CCEC00514DB0 /* AlamofireImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4674398D2C71CCEC00514DB0 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
+			productName = AlamofireImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

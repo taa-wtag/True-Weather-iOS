@@ -15,5 +15,5 @@ class HourlyWeatherItem: Object {
     @Persisted var humidity: Int?
     @Persisted var isDay: Int?
     @Persisted var conditionText: String?
-    @Persisted var image: Data?
+    @Persisted var imageUrl: String?
 }

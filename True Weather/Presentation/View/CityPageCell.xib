@@ -38,7 +38,7 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="qc5-op-cIf">
+                                    <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="qc5-op-cIf">
                                         <rect key="frame" x="0.0" y="62.333333333333321" width="218.66666666666666" height="102.66666666666669"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="200" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="25" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H4f-FV-IgX">
