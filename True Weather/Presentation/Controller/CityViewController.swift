@@ -3,9 +3,7 @@ import UIKit
 class CityViewController: UICollectionViewController {
     private let reuseIdentifier = Constants.CellIdentifiers.CityItem
 
-    var itemArray = [true, true, true, true, true, true, true, true,
-                     true, true, true, true, true, true, true, true,
-                     true, true, true, true, true, true, true, true]
+    var viewModel: CityViewModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +19,7 @@ class CityViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return itemArray.count
+        return viewModel?.cityList.count ?? 0
     }
 
     override func collectionView(
@@ -33,10 +31,16 @@ class CityViewController: UICollectionViewController {
                 withReuseIdentifier: reuseIdentifier,
                 for: indexPath
             )
-        (cell as? CityItemCell)?.delegate = self
-        (cell as? CityItemCell)?.isDeleteButtonHidden = itemArray[indexPath.row]
-        (cell as? CityItemCell)?.deleteThisCell = { [weak self] in
-            self?.itemArray.remove(at: indexPath.row)
+        if let cityItemCell = cell as? CityItemCell, let cityItem = viewModel?.cityList[indexPath.row] {
+            cityItemCell.delegate = self
+            cityItemCell.isDeleteButtonHidden = viewModel?.isDeleteButtonHidden ?? true
+            cityItemCell.configure(
+                with: cityItem,
+                weather: viewModel?.currentWeatherList[cityItem.cityName ?? ""] ?? HourlyWeatherItem()
+            )
+            cityItemCell.deleteThisCell = { [weak self] in
+                self?.viewModel?.deleteCity(at: indexPath.row)
+            }
         }
         return cell
     }
@@ -49,6 +53,8 @@ class CityViewController: UICollectionViewController {
                 sheet.detents = [.medium()]
                 sheet.preferredCornerRadius = sheetCornerRadius
             }
+            ViewModelFactory.initViewModel(for: citySearchVC)
+            citySearchVC.delegate = self
         }
     }
 }
@@ -97,41 +103,45 @@ extension CityViewController: CityItemCellDelegate {
     }
 
     func setDeleteButtonVisibility(isHidden flag: Bool? = nil) {
-        if let isHidden = flag {
-            for index in 0...itemArray.count-1 {
-                itemArray[index] = isHidden
-            }
-        } else {
-            for index in 0...itemArray.count-1 {
-                itemArray[index] = !itemArray[index]
-            }
-        }
+        viewModel?.isDeleteButtonHidden = flag ?? !viewModel!.isDeleteButtonHidden
         collectionView.reloadData()
+    }
+}
+
+extension CityViewController: CityViewModelDelegate {
+    func didFinishLoadingCities() {
+        collectionView.reloadData()
+    }
+}
+
+extension CityViewController: CitySearchViewControllerDelegate {
+    func didFinishAddingCity() {
+        viewModel?.getAllCities()
     }
 }
 
 extension CityViewController {
     private var cellHeight: CGFloat {
-        return 215 * Constants.sizeMagnifier
+        return floor(215 * Constants.sizeMagnifier)
     }
 
     private var cellWidth: CGFloat {
-        return 179 * Constants.sizeMagnifier
+        return floor(179 * Constants.sizeMagnifier)
     }
 
     private var topInset: CGFloat {
-        return 3 * Constants.sizeMagnifier
+        return floor(3 * Constants.sizeMagnifier)
     }
 
     private var bottomInset: CGFloat {
-        return 20 * Constants.sizeMagnifier
+        return floor(20 * Constants.sizeMagnifier)
     }
 
     private var sideInsets: CGFloat {
-        return 17 * Constants.sizeMagnifier
+        return floor(17 * Constants.sizeMagnifier)
     }
 
     private var sheetCornerRadius: CGFloat {
-        return 20 * Constants.sizeMagnifier
+        return floor(20 * Constants.sizeMagnifier)
     }
 }

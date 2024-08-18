@@ -5,8 +5,11 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var cityCollectionView: UICollectionView!
     @IBOutlet weak var weatherTableView: UITableView!
 
+    var viewModel: WeatherViewModel?
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        ViewModelFactory.initViewModel(for: self)
         cityCollectionView.delegate = self
         cityCollectionView.dataSource = self
         weatherTableView.delegate = self
@@ -34,24 +37,40 @@ class WeatherViewController: UIViewController {
         let maxHeight = cityCollectionView.heightAnchor.constraint(equalToConstant: cityPageHeight + 20.0)
         maxHeight.isActive = true
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel?.getAllCities()
+    }
+
     @IBAction func getLocationButtonAction(_ sender: UIBarButtonItem) {
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        ViewModelFactory.initViewModel(for: segue.destination)
     }
 }
 
 extension WeatherViewController: UICollectionViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        cityCollectionView.scrollToNearestVisibleCollectionViewCell()
+        let cellIndex = cityCollectionView.scrollToNearestVisibleCollectionViewCell()
+        if cellIndex != -1 {
+            viewModel?.currentCity = viewModel?.cityList[cellIndex]
+        }
     }
+
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
-            cityCollectionView.scrollToNearestVisibleCollectionViewCell()
+            let cellIndex = cityCollectionView.scrollToNearestVisibleCollectionViewCell()
+            if cellIndex != -1 {
+                viewModel?.currentCity = viewModel?.cityList[cellIndex]
+            }
         }
     }
 }
 
 extension WeatherViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        viewModel?.cityList.count ?? 0
     }
 
     func collectionView(
@@ -64,6 +83,12 @@ extension WeatherViewController: UICollectionViewDataSource {
                 for: indexPath
             )
         cell.layer.cornerRadius = cityPageCornerRadius
+        if let city = viewModel?.cityList[indexPath.row] {
+            (cell as? CityPageCell)?.configure(
+                with: city,
+                weather: WeatherUtil.getCurrentWeather(from: city.weatherEveryHour) ?? HourlyWeatherItem()
+            )
+        }
         return cell
     }
 }
@@ -107,7 +132,7 @@ extension WeatherViewController: UITableViewDelegate {
 
 extension WeatherViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        (viewModel?.dailyWeatherList.count ?? 0) + 3
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -127,7 +152,7 @@ extension WeatherViewController: UITableViewDataSource {
                     withIdentifier: Constants.CellIdentifiers.CollectionViewInTableView,
                     for: indexPath
                 )
-            cell.layoutIfNeeded()
+            (cell as? CollectionViewTableViewCell)?.hourlyWeatherList = viewModel?.hourlyWeatherList
             return cell
         default:
             let cell = tableView
@@ -135,13 +160,16 @@ extension WeatherViewController: UITableViewDataSource {
                     withIdentifier: Constants.CellIdentifiers.DailyWeather,
                     for: indexPath
                 )
+            (cell as? DailyWeatherCell)?.configure(
+                weather: viewModel?.dailyWeatherList[indexPath.row-3] ?? DailyWeatherItem()
+            )
             return cell
         }
     }
 }
 
 extension UICollectionView {
-   func scrollToNearestVisibleCollectionViewCell() {
+   func scrollToNearestVisibleCollectionViewCell() -> Int {
        self.decelerationRate = UIScrollView.DecelerationRate.fast
        let visibleCenterPositionOfScrollView = Float(self.contentOffset.x + (self.bounds.size.width / 2))
        var closestCellIndex = -1
@@ -164,25 +192,52 @@ extension UICollectionView {
             at: .centeredHorizontally, animated: true
            )
        }
+       return closestCellIndex
    }
+}
+
+extension WeatherViewController: WeatherViewModelDelegate {
+    func didUpdateCurrentWeather() {
+        cityCollectionView.reloadData()
+    }
+
+    func didUpdateForecastWeather() {
+        weatherTableView.reloadData()
+        reloadHourlyWeatherCollectionView()
+    }
+
+    func didFinishLoadingCities() {
+        cityCollectionView.reloadData()
+    }
+
+    func didUpdateCurrentCity() {
+        cityCollectionView.reloadData()
+        weatherTableView.reloadData()
+        reloadHourlyWeatherCollectionView()
+    }
+
+    func reloadHourlyWeatherCollectionView() {
+        (weatherTableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? CollectionViewTableViewCell)?
+            .hourCollectionView.reloadData()
+    }
 }
 
 extension WeatherViewController {
 
     private var cityPageCornerRadius: CGFloat {
-        return 18 * Constants.sizeMagnifier
+        return floor(18 * Constants.sizeMagnifier)
     }
 
     private var cityPageWidth: CGFloat {
-        return 330 * Constants.sizeMagnifier
+        return floor(330 * Constants.sizeMagnifier)
     }
 
     private var cityPageHeight: CGFloat {
-        return 200 * Constants.sizeMagnifier
+        return floor(200 * Constants.sizeMagnifier)
     }
 
     private var cityPageInsetSide: CGFloat {
-        return 22.5 * Constants.sizeMagnifier
+        return floor(22.5 * Constants.sizeMagnifier)
     }
 
     private var cityPageInterimSpacing: CGFloat {
@@ -190,6 +245,6 @@ extension WeatherViewController {
     }
 
     private var hourlyCollectionHeight: CGFloat {
-        return 120 * Constants.sizeMagnifier
+        return floor(120 * Constants.sizeMagnifier)
     }
 }

@@ -16,6 +16,6 @@ class HeaderTableViewCell: UITableViewCell {
 
 extension HeaderTableViewCell {
     private var labelFontSize: CGFloat {
-        return 23 * Constants.sizeMagnifier
+        return floor(23 * Constants.sizeMagnifier)
     }
 }

@@ -32,6 +32,6 @@ class HourlyWeatherCell: UICollectionViewCell {
 
 extension HourlyWeatherCell {
     private var labelFontSize: CGFloat {
-        return 12 * Constants.sizeMagnifier
+        return floor(12 * Constants.sizeMagnifier)
     }
 }

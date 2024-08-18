@@ -22,10 +22,8 @@ class CityPageCell: UICollectionViewCell {
     }
 
     func configure (with city: CityItem, weather: HourlyWeatherItem, isCelcius: Bool = false) {
-        if let date = weather.timeEpoch {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "EEE, dd MMM yyyy"
-            dateLabel.text = dateFormatter.string(from: date)
+        if let date = weather.timeString {
+            dateLabel.text = DateUtil.getFullDate(from: date)
         }
         cityLabel.text = city.cityName?.components(separatedBy: ", ").first
         countryLabel.text = city.cityName?.components(separatedBy: ", ").last
@@ -40,22 +38,22 @@ class CityPageCell: UICollectionViewCell {
 
 extension CityPageCell {
     private var cityLabelFontSize: CGFloat {
-        return 22 * Constants.sizeMagnifier
+        return floor(22 * Constants.sizeMagnifier)
     }
 
     private var countryLabelFontSize: CGFloat {
-        return 15 * Constants.sizeMagnifier
+        return floor(15 * Constants.sizeMagnifier)
     }
 
     private var tempLabelFontSize: CGFloat {
-        return 40 * Constants.sizeMagnifier
+        return floor(40 * Constants.sizeMagnifier)
     }
 
     private var conditionLabelFontSize: CGFloat {
-        return 15 * Constants.sizeMagnifier
+        return floor(15 * Constants.sizeMagnifier)
     }
 
     private var dateLabelFontSize: CGFloat {
-        return 12 * Constants.sizeMagnifier
+        return floor(12 * Constants.sizeMagnifier)
     }
 }

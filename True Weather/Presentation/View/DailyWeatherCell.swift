@@ -19,10 +19,8 @@ class DailyWeatherCell: UITableViewCell {
     }
 
     func configure (weather: DailyWeatherItem, isCelsius: Bool = true) {
-        if let date = weather.dateEpoch {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "EEEE"
-            dayLabel.text = dateFormatter.string(from: date)
+        if let date = weather.dateString {
+            dayLabel.text = DateUtil.getWeekDay(from: date)
         }
         maxTempLabel.text = "\(weather.maxTempC ?? 0.00)° / "
         minTempLabel.text = "\(weather.minTempC ?? 0.00)°"
@@ -34,14 +32,14 @@ class DailyWeatherCell: UITableViewCell {
 
 extension DailyWeatherCell {
     private var labelFontSize: CGFloat {
-        return 18 * Constants.sizeMagnifier
+        return floor(18 * Constants.sizeMagnifier)
     }
 
     private var iconSize: CGFloat {
-        return 40 * Constants.sizeMagnifier
+        return floor(40 * Constants.sizeMagnifier)
     }
 
     private var labelWidth: CGFloat {
-        return 100 * Constants.sizeMagnifier
+        return floor(100 * Constants.sizeMagnifier)
     }
 }

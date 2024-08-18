@@ -62,26 +62,26 @@ class CityItemCell: UICollectionViewCell {
 
 extension CityItemCell {
     private var cityLabelFontSize: CGFloat {
-        return 16 * Constants.sizeMagnifier
+        return floor(16 * Constants.sizeMagnifier)
     }
 
     private var countryLabelFontSize: CGFloat {
-        return 12 * Constants.sizeMagnifier
+        return floor(12 * Constants.sizeMagnifier)
     }
 
     private var temperatureLabelFontSize: CGFloat {
-        return 34 * Constants.sizeMagnifier
+        return floor(34 * Constants.sizeMagnifier)
     }
 
     private var conditionLabelFontSize: CGFloat {
-        return 16 * Constants.sizeMagnifier
+        return floor(16 * Constants.sizeMagnifier)
     }
 
     private var cellCornerRadius: CGFloat {
-        return 15 * Constants.sizeMagnifier
+        return floor(15 * Constants.sizeMagnifier)
     }
 
     private var deleteButtonSize: CGFloat {
-        return 20 * Constants.sizeMagnifier
+        return floor(20 * Constants.sizeMagnifier)
     }
 }

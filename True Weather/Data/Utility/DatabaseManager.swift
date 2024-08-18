@@ -1,5 +1,6 @@
 import Foundation
 import RealmSwift
+import Realm
 
 protocol DatabaseManagerProtocol {
     func get<T: Object>(_ type: T.Type) -> T?
@@ -7,8 +8,10 @@ protocol DatabaseManagerProtocol {
     func getAll<T: Object>(_ type: T.Type) -> [T]?
     func save(_ object: Object?)
     func saveAll(_ array: [Object])
-    func delete(_ object: Object?)
+    func delete<T: Object>(_ type: T.Type?, where predicate: (Query<T>) -> Query<Bool>)
+    func delete(_ object: ObjectBase?)
     func deleteAll(_ array: [Object])
+    func delete<T>(_ array: T) where T: Sequence, T.Element: RLMObjectBase
     func deleteAll<T: Object>(_ type: T.Type)
     func clearDB()
 }
@@ -50,6 +53,14 @@ class DatabaseManager: DatabaseManagerProtocol {
         return nil
     }
 
+    func update(_ object: Object?) {
+        if let realm = getRealm(), let object = object {
+            try? realm.write {
+                realm.add(object, update: .modified)
+            }
+        }
+    }
+
     func save(_ object: Object?) {
         if let realm = getRealm(), let object = object {
             try? realm.write {
@@ -66,10 +77,26 @@ class DatabaseManager: DatabaseManagerProtocol {
         }
     }
 
-    func delete(_ object: Object?) {
+    func delete(_ object: ObjectBase?) {
         if let realm = getRealm(), let object = object {
             try? realm.write {
-                realm.delete(object, cascading: true)
+                realm.delete(object)
+            }
+        }
+    }
+
+    func delete<T: Object>(_ type: T.Type?, where predicate: (Query<T>) -> Query<Bool>) {
+        if let realm = getRealm(), let type = type {
+            try? realm.write {
+                realm.delete(realm.objects(type).where(predicate))
+            }
+        }
+    }
+
+    func delete<T: Object>(_ object: List<T>?) {
+        if let realm = getRealm(), let object = object {
+            try? realm.write {
+                realm.delete(object)
             }
         }
     }
@@ -77,7 +104,15 @@ class DatabaseManager: DatabaseManagerProtocol {
     func deleteAll(_ array: [Object]) {
         if let realm = getRealm() {
             try? realm.write {
-                realm.delete(array, cascading: true)
+                realm.delete(array)
+            }
+        }
+    }
+
+    func delete<T>(_ array: T) where T: Sequence, T.Element: RLMObjectBase {
+        if let realm = getRealm() {
+            try? realm.write {
+                realm.delete(array)
             }
         }
     }
@@ -94,28 +129,5 @@ class DatabaseManager: DatabaseManagerProtocol {
                 realm.deleteAll()
             }
         }
-    }
-}
-
-extension Realm {
-    func delete<S: Sequence>(_ objects: S, cascading: Bool) where S.Iterator.Element: Object {
-        for obj in objects {
-            delete(obj, cascading: cascading)
-        }
-    }
-
-    func delete<T: Object>(_ entity: T, cascading: Bool) {
-        for attr in Mirror(reflecting: entity).children {
-            if let element = attr.value as? Object {
-                delete(element, cascading: true)
-            } else if let element = attr.value as? any Sequence {
-                for obj in element {
-                    if let item = obj as? Object {
-                        delete(item, cascading: cascading)
-                    }
-                }
-            }
-        }
-        delete(entity)
     }
 }

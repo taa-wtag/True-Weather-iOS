@@ -5,6 +5,8 @@ class CollectionViewTableViewCell: UITableViewCell {
     @IBOutlet weak var hourCollectionView: UICollectionView!
     private let cellIdentifier = Constants.CellIdentifiers.HourlyWeather
 
+    var hourlyWeatherList: [HourlyWeatherItem]?
+
     override func awakeFromNib() {
         super.awakeFromNib()
         hourCollectionView.register(
@@ -20,7 +22,7 @@ extension CollectionViewTableViewCell: UICollectionViewDelegate {}
 
 extension CollectionViewTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        12
+        hourlyWeatherList?.count ?? 0
     }
 
     func collectionView(
@@ -33,12 +35,9 @@ extension CollectionViewTableViewCell: UICollectionViewDataSource {
                 for: indexPath
             )
         cell.layer.cornerRadius = cornerRadius
-        let dummyHourWeather = HourlyWeatherItem()
-        dummyHourWeather.timeString = " 02:00"
-        dummyHourWeather.conditionText = "Blizzard"
         (cell as? HourlyWeatherCell)?
             .configure(
-                weather: dummyHourWeather,
+                weather: hourlyWeatherList?[indexPath.row] ?? HourlyWeatherItem(),
                 isFirst: indexPath.row == 0
             )
         return cell
@@ -73,22 +72,22 @@ extension CollectionViewTableViewCell: UICollectionViewDelegateFlowLayout {
 
 extension CollectionViewTableViewCell {
     private var cellHeight: CGFloat {
-        return 110 * Constants.sizeMagnifier
+        return floor(110 * Constants.sizeMagnifier)
     }
 
     private var cellWidth: CGFloat {
-        return 60 * Constants.sizeMagnifier
+        return floor(60 * Constants.sizeMagnifier)
     }
 
     private var topInsets: CGFloat {
-        return 10 * Constants.sizeMagnifier
+        return floor(10 * Constants.sizeMagnifier)
     }
 
     private var sideInsets: CGFloat {
-        return 20 * Constants.sizeMagnifier
+        return floor(20 * Constants.sizeMagnifier)
     }
 
     private var cornerRadius: CGFloat {
-        return 10 * Constants.sizeMagnifier
+        return floor(10 * Constants.sizeMagnifier)
     }
 }
