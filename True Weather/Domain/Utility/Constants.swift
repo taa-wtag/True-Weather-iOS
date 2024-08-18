@@ -41,4 +41,6 @@ struct Constants {
     static var sizeMagnifier: CGFloat {
         return UIScreen.main.bounds.size.width / 375.0
     }
+
+    static var genericErrorMessage = "Unknown error occurred"
 }

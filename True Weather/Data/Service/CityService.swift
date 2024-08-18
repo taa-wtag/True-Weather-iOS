@@ -10,11 +10,11 @@ protocol CityServiceProtocol {
 
     func addCity(city: CityItem)
 
-    func deleteCity(city: CityItem)
+    func deleteCity(city: String, completion: @escaping() -> Void)
 
-    func getCity(name city: String, completion: @escaping(CityItem?) -> Void)
+    func getCity(name city: String, completion: @escaping(CityItem) -> Void)
 
-    func getAllCities(completion: @escaping([CityItem]?) -> Void)
+    func getAllCities(completion: @escaping([CityItem]) -> Void)
 }
 
 class CityService: CityServiceProtocol {
@@ -55,17 +55,23 @@ class CityService: CityServiceProtocol {
         database.save(city)
     }
 
-    func deleteCity(city: CityItem) {
-        database.delete(city)
+    func deleteCity(city: String, completion: @escaping() -> Void) {
+        getCity(name: city) { [weak self] cityItem in
+            self?.database.delete(cityItem.weatherEveryDay)
+            self?.database.delete(cityItem.weatherEveryHour)
+            self?.database.delete(cityItem)
+            completion()
+        }
     }
 
-    func getCity(name city: String, completion: @escaping (CityItem?) -> Void) {
-        let cityItem = database.get(CityItem.self) { $0.cityName == city }
-        completion(cityItem)
+    func getCity(name city: String, completion: @escaping (CityItem) -> Void) {
+        if let cityItem = database.get(CityItem.self, predicate: { $0.cityName == city }) {
+            completion(cityItem)
+        }
     }
 
-    func getAllCities(completion: @escaping ([CityItem]?) -> Void) {
+    func getAllCities(completion: @escaping ([CityItem]) -> Void) {
         let cities = database.getAll(CityItem.self)
-        completion(cities)
+        completion(cities ?? [])
     }
 }

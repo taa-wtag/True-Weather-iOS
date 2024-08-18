@@ -1,4 +1,5 @@
 import Foundation
+import RealmSwift
 
 protocol WeatherServiceProtocol {
     func getCurrentWeatherFromRemote(
@@ -9,24 +10,12 @@ protocol WeatherServiceProtocol {
     func getForecastWeatherFromRemote(
         in city: String,
         days: Int?,
-        completion: @escaping(String?, [HourlyWeatherData]?, [DailyWeatherData]?) -> Void
+        completion: @escaping(String?, HourlyWeatherData?, ForecastData?) -> Void
     )
 
-    func getCurrentWeatherFromCache(
+    func getWeatherFromCache(
         in city: String,
-        completion: @escaping(HourlyWeatherItem?) -> Void
-    )
-
-    func getWeatherForecastInDaysFromCache(
-        in city: String,
-        days: Int?,
-        completion: @escaping([DailyWeatherItem]?) -> Void
-    )
-
-    func getWeatherForecastInHoursFromCache(
-        in city: String,
-        days: Int?,
-        completion: @escaping([HourlyWeatherItem]?) -> Void
+        completion: @escaping (List<HourlyWeatherItem>, List<DailyWeatherItem>) -> Void
     )
 
     func  addWeather <T>(to city: String, weather: T)
@@ -61,106 +50,67 @@ class WeatherService: WeatherServiceProtocol {
     func getForecastWeatherFromRemote(
         in city: String,
         days: Int? = nil,
-        completion: @escaping (String?, [HourlyWeatherData]?, [DailyWeatherData]?) -> Void
+        completion: @escaping (String?, HourlyWeatherData?, ForecastData?) -> Void
     ) {
         let query = WeatherQuery(placeName: city, forecastDays: days)
-        let request = WeatherAPIRouter.getCurrentWeather(from: query)
+        let request = WeatherAPIRouter.getForecastWeather(from: query)
         networkRequestService.request(request, responseType: WeatherResponse.self) { error, data in
             if error == nil, let weatherData = data {
-                let hourlyWeatherList = weatherData
-                    .forecastData?
-                    .dailyForecastDataList?
-                    .compactMap { $0.hourlyWeatherDataList }
-                    .flatMap { $0 }
-                let dailyWeatherList = weatherData.forecastData?.dailyForecastDataList?.compactMap {
-                    $0.dailyWeatherData
-                }
-                completion(error, hourlyWeatherList, dailyWeatherList)
+                completion(error, weatherData.currentWeatherData, weatherData.forecastData)
             } else {
                 completion(error, nil, nil)
             }
         }
     }
 
-    func getCurrentWeatherFromCache(
+    func getWeatherFromCache(
         in city: String,
-        completion: @escaping (HourlyWeatherItem?) -> Void
+        completion: @escaping (List<HourlyWeatherItem>, List<DailyWeatherItem>) -> Void
     ) {
-        let cityItem = getCity(city: city)
-        if let item = cityItem {
-            let currentWeather = item.weatherEveryHour
-                .sorted {
-                    $0.timeEpoch ?? Date(timeIntervalSince1970: 0.0) <
-                        $1.timeEpoch ?? Date(timeIntervalSince1970: 0.0)
-                }
-                .first { $0.timeEpoch?.timeIntervalSinceNow ?? -1.0 >= 0.0 }
-            completion(currentWeather)
+        if let item = getCity(city: city) {
+            let oldWeatherItems = WeatherUtil.getOldWeatherItems(from: item)
+//            database.delete(oldWeatherItems.0)
+//            database.delete(oldWeatherItems.1)
+            completion(item.weatherEveryHour, item.weatherEveryDay)
         } else {
-            completion(nil)
-        }
-    }
-
-    func getWeatherForecastInDaysFromCache(
-        in city: String, days: Int? = nil,
-        completion: @escaping ([DailyWeatherItem]?) -> Void
-    ) {
-        let cityItem = getCity(city: city)
-        if let item = cityItem {
-            let dailyWeatherItems = item.weatherEveryDay
-                .sorted {
-                    $0.dateEpoch ?? Date(timeIntervalSince1970: 0.0) <
-                        $1.dateEpoch ?? Date(timeIntervalSince1970: 0.0)
-                }
-                .filter { $0.dateEpoch?.timeIntervalSinceNow ?? -1.0 >= 0.0 }
-            completion(dailyWeatherItems)
-        } else {
-            completion(nil)
-        }
-    }
-
-    func getWeatherForecastInHoursFromCache(
-        in city: String, days: Int? = nil,
-        completion: @escaping ([HourlyWeatherItem]?) -> Void
-    ) {
-        let cityItem = getCity(city: city)
-        if let item = cityItem {
-            let hourlyWeatherItems = item.weatherEveryHour
-                .sorted {
-                    $0.timeEpoch ?? Date(timeIntervalSince1970: 0.0) <
-                        $1.timeEpoch ?? Date(timeIntervalSince1970: 0.0)
-                }
-                .filter { $0.timeEpoch?.timeIntervalSinceNow ?? -1.0 >= 0.0 }
-            completion(hourlyWeatherItems)
-        } else {
-            completion(nil)
+            completion(List<HourlyWeatherItem>(), List<DailyWeatherItem>())
         }
     }
 
     func addWeather<T>(to city: String, weather: T) {
-        let cityItem = getCity(city: city)
-        switch weather {
-        case is HourlyWeatherItem:
-            if let item = weather as? HourlyWeatherItem {
-                cityItem?.weatherEveryHour.append(item)
-                database.save(cityItem)
+        if let city = getCity(city: city) {
+            switch weather {
+            case is HourlyWeatherItem:
+                if let item = weather as? HourlyWeatherItem {
+                    database.delete(WeatherUtil.duplicateWeatherItems(in: city, weather: item))
+                    let cityItem = CityItem(value: city)
+                    cityItem.weatherEveryHour.append(item)
+                    database.update(cityItem)
+                }
+            case is DailyWeatherItem:
+                if let item = weather as? DailyWeatherItem {
+                    database.delete(WeatherUtil.duplicateWeatherItems(in: city, weather: item))
+                    let cityItem = CityItem(value: city)
+                    cityItem.weatherEveryDay.append(item)
+                    database.update(cityItem)
+                }
+            case is [HourlyWeatherItem]:
+                if let item = weather as? [HourlyWeatherItem] {
+                    database.deleteAll(WeatherUtil.duplicateWeatherItems(in: city, weather: item))
+                    let cityItem = CityItem(value: city)
+                    cityItem.weatherEveryHour.append(objectsIn: item)
+                    database.update(cityItem)
+                }
+            case is [DailyWeatherItem]:
+                if let item = weather as? [DailyWeatherItem] {
+                    database.deleteAll(WeatherUtil.duplicateWeatherItems(in: city, weather: item))
+                    let cityItem = CityItem(value: city)
+                    cityItem.weatherEveryDay.append(objectsIn: item)
+                    database.update(cityItem)
+                }
+            default:
+                return
             }
-        case is DailyWeatherItem:
-            if let item = weather as? DailyWeatherItem {
-                cityItem?.weatherEveryDay.append(item)
-                database.save(cityItem)
-            }
-        case is [HourlyWeatherItem]:
-            if let item = weather as? [HourlyWeatherItem] {
-                cityItem?.weatherEveryHour.append(objectsIn: item)
-                database.save(cityItem)
-            }
-        case is [DailyWeatherItem]:
-            if let item = weather as? [DailyWeatherItem] {
-                cityItem?.weatherEveryDay.append(objectsIn: item)
-                database.save(cityItem)
-            }
-        default:
-            return
         }
     }
 }

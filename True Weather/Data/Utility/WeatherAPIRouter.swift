@@ -4,7 +4,7 @@ import Alamofire
 enum WeatherAPIRouter: URLRequestConvertible {
 
     case getCurrentWeather (from: WeatherQuery)
-    case getWeatherForecast (from: WeatherQuery)
+    case getForecastWeather (from: WeatherQuery)
     case getCityName (from: WeatherQuery)
     case searchCity (from: WeatherQuery)
 
@@ -12,7 +12,7 @@ enum WeatherAPIRouter: URLRequestConvertible {
         switch self {
         case .getCurrentWeather:
             return "current.json"
-        case .getWeatherForecast:
+        case .getForecastWeather:
             return "forecast.json"
         case .getCityName, .searchCity:
             return "search.json"
@@ -21,7 +21,7 @@ enum WeatherAPIRouter: URLRequestConvertible {
 
     var method: HTTPMethod {
         switch self {
-        case .getCurrentWeather, .getWeatherForecast, .getCityName, .searchCity:
+        case .getCurrentWeather, .getForecastWeather, .getCityName, .searchCity:
             return .get
         }
     }
@@ -30,7 +30,7 @@ enum WeatherAPIRouter: URLRequestConvertible {
         switch self {
         case .getCurrentWeather(let params),
                 .searchCity(let params),
-                .getWeatherForecast(let params),
+                .getForecastWeather(let params),
                 .getCityName(let params):
             return params.parameters().isEmpty ? nil : params.parameters()
         }

@@ -12,7 +12,7 @@
         <!--Navigation Controller-->
         <scene sceneID="NZa-3F-Ovf">
             <objects>
-                <navigationController id="Pba-aW-ki5" sceneMemberID="viewController">
+                <navigationController id="Pba-aW-ki5" customClass="NavigationController" customModule="True_Weather" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Y3m-ls-gS3">
                         <rect key="frame" x="0.0" y="59" width="430" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
