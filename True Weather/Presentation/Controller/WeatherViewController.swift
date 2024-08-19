@@ -87,8 +87,7 @@ extension WeatherViewController: UICollectionViewDataSource {
         if let city = viewModel?.cityList[indexPath.row] {
             (cell as? CityPageCell)?.configure(
                 with: city,
-                weather: WeatherUtil.getCurrentWeather(from: city.weatherEveryHour) ?? HourlyWeatherItem(),
-                NetworkRequestService.sharedInstance
+                weather: WeatherUtil.getCurrentWeather(from: city.weatherEveryHour) ?? HourlyWeatherItem()
             )
         }
         return cell
@@ -163,8 +162,7 @@ extension WeatherViewController: UITableViewDataSource {
                     for: indexPath
                 )
             (cell as? DailyWeatherCell)?.configure(
-                weather: viewModel?.dailyWeatherList[indexPath.row-3] ?? DailyWeatherItem(),
-                NetworkRequestService.sharedInstance
+                weather: viewModel?.dailyWeatherList[indexPath.row-3] ?? DailyWeatherItem()
             )
             return cell
         }

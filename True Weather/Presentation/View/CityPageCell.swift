@@ -24,8 +24,7 @@ class CityPageCell: UICollectionViewCell {
     func configure (
         with city: CityItem,
         weather: HourlyWeatherItem,
-        isCelcius: Bool = false,
-        _ service: NetworkRequestServiceProtocol
+        isCelcius: Bool = false
     ) {
         if let date = weather.timeString {
             dateLabel.text = DateUtil.getFullDate(from: date)
@@ -35,7 +34,7 @@ class CityPageCell: UICollectionViewCell {
         pageBackgroundImageView.image = UIImage(named: "city_page_background_\(city.backgroundColor ?? 0)")
         conditionLabel.text = WeatherUtil.getMediumCondition(from: weather.conditionText ?? "")
         temperatureLabel.text = "\(weather.tempC ?? 0.00)"
-        service.request(weather.imageUrl ?? "") { [weak self] _, data in
+        WeatherIconUseCase().loadWeatherIcon(from: weather.imageUrl ?? "") { [weak self] data in
             self?.iconImageView.image = data
         }
     }

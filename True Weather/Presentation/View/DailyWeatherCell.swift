@@ -18,13 +18,13 @@ class DailyWeatherCell: UITableViewCell {
         minTempLabel.font = minTempLabel.font.withSize(labelFontSize)
     }
 
-    func configure (weather: DailyWeatherItem, isCelsius: Bool = true, _ service: NetworkRequestServiceProtocol) {
+    func configure (weather: DailyWeatherItem, isCelsius: Bool = true) {
         if let date = weather.dateString {
             dayLabel.text = DateUtil.getWeekDay(from: date)
         }
         maxTempLabel.text = "\(weather.maxTempC ?? 0.00)° / "
         minTempLabel.text = "\(weather.minTempC ?? 0.00)°"
-        service.request(weather.imageUrl ?? "") { [weak self] _, data in
+        WeatherIconUseCase().loadWeatherIcon(from: weather.imageUrl ?? "") { [weak self] data in
             self?.iconImageView.image = data
         }
     }

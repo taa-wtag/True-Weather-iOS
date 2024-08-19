@@ -38,8 +38,7 @@ extension CollectionViewTableViewCell: UICollectionViewDataSource {
         (cell as? HourlyWeatherCell)?
             .configure(
                 weather: hourlyWeatherList?[indexPath.row] ?? HourlyWeatherItem(),
-                isFirst: indexPath.row == 0,
-                NetworkRequestService.sharedInstance
+                isFirst: indexPath.row == 0
             )
         return cell
     }

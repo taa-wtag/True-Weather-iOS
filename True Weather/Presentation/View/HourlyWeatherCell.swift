@@ -12,10 +12,10 @@ class HourlyWeatherCell: UICollectionViewCell {
         conditionLabel.font = conditionLabel.font.withSize(labelFontSize)
     }
 
-    func configure (weather: HourlyWeatherItem, isFirst: Bool = false, _ service: NetworkRequestServiceProtocol) {
+    func configure (weather: HourlyWeatherItem, isFirst: Bool = false) {
         timeLabel.text = weather.timeString?.components(separatedBy: " ").last
         conditionLabel.text = WeatherUtil.getShortCondition(from: weather.conditionText ?? "")
-        service.request(weather.imageUrl ?? "") { [weak self] _, data in
+        WeatherIconUseCase().loadWeatherIcon(from: weather.imageUrl ?? "") { [weak self] data in
             self?.iconImageView.image = data
         }
         if isFirst {

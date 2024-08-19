@@ -111,11 +111,14 @@ class WeatherViewModel {
                 self?.dailyWeatherList = dailyWeatherList.sorted {
                     $0.dateEpoch ?? Date(timeIntervalSince1970: 0) < $1.dateEpoch ?? Date(timeIntervalSince1970: 0)
                 }
-                self?.hourlyWeatherList =  hourlyWeatherList.sorted {
+                let hourlyWeatherList =  hourlyWeatherList.sorted {
                     $0.timeEpoch ?? Date(timeIntervalSince1970: 0) < $1.timeEpoch ?? Date(timeIntervalSince1970: 0)
-                } .filter {
+                }
+                let firstTime = DateUtil.getHoursFromTimeString(from: hourlyWeatherList.first?.timeString ?? "") ?? 0
+                self?.hourlyWeatherList = hourlyWeatherList.filter {
                     if let time = $0.timeEpoch?.timeIntervalSinceNow {
-                        return time > 0 && time < 86400
+                        let hourInt = DateUtil.getHoursFromTimeString(from: $0.timeString ?? "") ?? -1
+                        return time > 0 && time < 86400 && (hourInt >= firstTime || hourInt == 0)
                     } else {
                         return false
                     }
