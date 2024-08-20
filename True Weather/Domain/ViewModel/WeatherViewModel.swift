@@ -49,16 +49,16 @@ class WeatherViewModel {
     weak var delegate: WeatherViewModelDelegate?
 
     init(
-        cityService: CityService = CityService.shared,
-        weatherService: WeatherService = WeatherService.shared,
-        locationService: LocationService = LocationService.shared,
+        cityService: CityServiceProtocol = CityService.shared,
+        weatherService: WeatherServiceProtocol = WeatherService.shared,
+        locationService: LocationServiceProtocol = LocationService.shared,
         delegate: WeatherViewModelDelegate? = nil
     ) {
         self.cityService = cityService
         self.weatherService = weatherService
         self.locationService = locationService
         self.delegate = delegate
-        locationService.delegate = self
+        (locationService as? LocationService)?.delegate = self
     }
 
     func getAllCities() {

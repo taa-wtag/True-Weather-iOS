@@ -16,7 +16,7 @@ class HourlyWeatherCell: UICollectionViewCell {
         timeLabel.text = weather.timeString?.components(separatedBy: " ").last
         conditionLabel.text = WeatherUtil.getShortCondition(from: weather.conditionText ?? "")
         WeatherIconUseCase().loadWeatherIcon(from: weather.imageUrl ?? "") { [weak self] data in
-            self?.iconImageView.image = data
+            self?.iconImageView.image = UIImage(data: data)
         }
         if isFirst {
             timeLabel.textColor = UIColor(named: Constants.Colors.DeepGolden)

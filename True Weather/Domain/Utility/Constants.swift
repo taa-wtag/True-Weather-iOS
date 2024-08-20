@@ -11,6 +11,7 @@ struct Constants {
 
     struct Weather {
         static let WeatherBaseUrl = "https://api.weatherapi.com/v1/"
+        static let IconBaseUrl = "https://cdn.weatherapi.com/"
         static let ForecastMaxDays = 3
     }
 

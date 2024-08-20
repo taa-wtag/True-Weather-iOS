@@ -8,8 +8,8 @@ struct WeatherIconUseCase {
         self.service = service
     }
 
-    func loadWeatherIcon(from url: String, completion: @escaping(UIImage) -> Void) {
-        service.getIconFromcache(url: url) { data in
+    func loadWeatherIcon(from url: String, completion: @escaping(Data) -> Void) {
+        service.getIconFromCache(url: url) { data in
             if let image = data {
                 completion(image)
             } else {
@@ -21,11 +21,8 @@ struct WeatherIconUseCase {
     }
 
     private func getWeatherIconFromRemote(from url: String, completion: @escaping() -> Void) {
-        service.getIconFromRemote(url: url) { data in
-            let image = WeatherIconItem()
-            image.url = url
-            image.imageData = data.pngData()
-            service.saveIcon(image: image)
+        service.getIconFromRemote(url: Constants.Weather.IconBaseUrl + url) { data in
+            service.saveIcon(url: url, image: data)
             completion()
         }
     }

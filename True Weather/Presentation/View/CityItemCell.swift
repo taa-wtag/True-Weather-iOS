@@ -45,7 +45,7 @@ class CityItemCell: UICollectionViewCell {
         conditionLabel.text = WeatherUtil.getShortCondition(from: weather.conditionText ?? "")
         temperatureLabel.text = "\(weather.tempC ?? 0.0)°"
         WeatherIconUseCase().loadWeatherIcon(from: weather.imageUrl ?? "") { [weak self] data in
-            self?.iconImageView.image = data
+            self?.iconImageView.image = UIImage(data: data)
         }
     }
 

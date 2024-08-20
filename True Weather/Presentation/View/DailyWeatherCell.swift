@@ -25,7 +25,7 @@ class DailyWeatherCell: UITableViewCell {
         maxTempLabel.text = "\(weather.maxTempC ?? 0.00)° / "
         minTempLabel.text = "\(weather.minTempC ?? 0.00)°"
         WeatherIconUseCase().loadWeatherIcon(from: weather.imageUrl ?? "") { [weak self] data in
-            self?.iconImageView.image = data
+            self?.iconImageView.image = UIImage(data: data)
         }
     }
 }

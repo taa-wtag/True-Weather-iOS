@@ -8,15 +8,17 @@ protocol CitySearchViewModelDelegate: AnyObject {
 class CitySearchViewModel {
     private let service: CityServiceProtocol
 
-    var cityArray: [String] = [] {
+    private(set) var cityArray: [String] = [] {
         didSet {
             delegate?.didFinishLoading()
         }
     }
 
+    private(set) var errorMessage = ""
+
     weak var delegate: CitySearchViewModelDelegate?
 
-    init(service: CityService = CityService.shared, delegate: CitySearchViewModelDelegate? = nil) {
+    init(service: CityServiceProtocol = CityService.shared, delegate: CitySearchViewModelDelegate? = nil) {
         self.service = service
         self.delegate = delegate
     }
@@ -27,6 +29,8 @@ class CitySearchViewModel {
                 if let cities = self?.citySuggestionsToCityList(suggestions: suggestions) {
                     self?.cityArray = cities
                 }
+            } else if let errorMessage = error {
+                self?.errorMessage = errorMessage
             }
         }
     }

@@ -70,7 +70,7 @@ struct WeatherUtil {
         weather.humidity = data?.humidity
         weather.isDay = data?.isDay
         weather.conditionText = data?.weatherCondition?.text
-        weather.imageUrl = "https:\(data?.weatherCondition?.icon ?? "")"
+        weather.imageUrl = data?.weatherCondition?.icon?.dropFirst(21).description
         return weather
     }
 
@@ -96,7 +96,7 @@ struct WeatherUtil {
         weather.maxWindMph = data?.maxWindMph
         weather.avgHumidity = data?.avgHumidity
         weather.conditionText = data?.weatherCondition?.text
-        weather.imageUrl = "https:\(data?.weatherCondition?.icon ?? "")"
+        weather.imageUrl = data?.weatherCondition?.icon?.dropFirst(21).description
         return weather
     }
 
