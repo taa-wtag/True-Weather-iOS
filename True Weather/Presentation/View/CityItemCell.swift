@@ -30,6 +30,8 @@ class CityItemCell: UICollectionViewCell {
         let buttonImage = UIImage(systemName: "xmark.circle.fill", withConfiguration: buttonConfig)
         deleteButton.setImage(buttonImage, for: .normal)
         addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(onLongPress)))
+        let height = iconImageView.heightAnchor.constraint(equalToConstant: iconSize)
+        height.isActive = true
     }
 
     override func layoutSubviews() {
@@ -40,10 +42,10 @@ class CityItemCell: UICollectionViewCell {
         cityLabel.text = city.cityName?.components(separatedBy: ", ").first
         countryLabel.text = city.cityName?.components(separatedBy: ", ").last
         itemBackgroundImageView.image = UIImage(named: "city_item_background_\(city.backgroundColor ?? 0)")
-        conditionLabel.text = weather.conditionText
-        temperatureLabel.text = "\(weather.tempC ?? 0.00)°"
-        if let imageData = weather.image {
-            iconImageView.image = UIImage(data: imageData)
+        conditionLabel.text = WeatherUtil.getShortCondition(from: weather.conditionText ?? "")
+        temperatureLabel.text = "\(weather.tempC ?? 0.0)°"
+        WeatherIconUseCase().loadWeatherIcon(from: weather.imageUrl ?? "") { [weak self] data in
+            self?.iconImageView.image = UIImage(data: data)
         }
     }
 
@@ -83,5 +85,9 @@ extension CityItemCell {
 
     private var deleteButtonSize: CGFloat {
         return floor(20 * Constants.sizeMagnifier)
+    }
+
+    private var iconSize: CGFloat {
+        return floor(35 * Constants.sizeMagnifier)
     }
 }

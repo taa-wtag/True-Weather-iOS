@@ -8,15 +8,17 @@ protocol CitySearchViewModelDelegate: AnyObject {
 class CitySearchViewModel {
     private let service: CityServiceProtocol
 
-    var cityArray: [String] = [] {
+    private(set) var cityArray: [String] = [] {
         didSet {
             delegate?.didFinishLoading()
         }
     }
 
+    private(set) var errorMessage = ""
+
     weak var delegate: CitySearchViewModelDelegate?
 
-    init(service: CityService = CityService.shared, delegate: CitySearchViewModelDelegate? = nil) {
+    init(service: CityServiceProtocol = CityService.shared, delegate: CitySearchViewModelDelegate? = nil) {
         self.service = service
         self.delegate = delegate
     }
@@ -27,16 +29,23 @@ class CitySearchViewModel {
                 if let cities = self?.citySuggestionsToCityList(suggestions: suggestions) {
                     self?.cityArray = cities
                 }
+            } else if let errorMessage = error {
+                self?.errorMessage = errorMessage
             }
         }
     }
 
     func addCity(withIndex index: Int) {
-        let cityItem = CityItem()
-        cityItem.cityName = cityArray[index]
-        cityItem.backgroundColor = Int.random(in: 0..<6)
-        service.addCity(city: cityItem)
-        delegate?.didFinishAddingCity()
+        let cityName = cityArray[index]
+        service.getCity(name: cityName) { [weak self] city in
+            if city == nil {
+                let cityItem = CityItem()
+                cityItem.cityName = cityName
+                cityItem.backgroundColor = Int.random(in: 0..<6)
+                self?.service.addCity(city: cityItem)
+                self?.delegate?.didFinishAddingCity()
+            }
+        }
     }
 
     private func citySuggestionsToCityList(suggestions: [CitySuggestion]) -> [String] {

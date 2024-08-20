@@ -12,7 +12,7 @@ protocol CityServiceProtocol {
 
     func deleteCity(city: String, completion: @escaping() -> Void)
 
-    func getCity(name city: String, completion: @escaping(CityItem) -> Void)
+    func getCity(name city: String, completion: @escaping(CityItem?) -> Void)
 
     func getAllCities(completion: @escaping([CityItem]) -> Void)
 }
@@ -57,16 +57,18 @@ class CityService: CityServiceProtocol {
 
     func deleteCity(city: String, completion: @escaping() -> Void) {
         getCity(name: city) { [weak self] cityItem in
-            self?.database.delete(cityItem.weatherEveryDay)
-            self?.database.delete(cityItem.weatherEveryHour)
+            self?.database.delete(cityItem?.weatherEveryDay)
+            self?.database.delete(cityItem?.weatherEveryHour)
             self?.database.delete(cityItem)
             completion()
         }
     }
 
-    func getCity(name city: String, completion: @escaping (CityItem) -> Void) {
+    func getCity(name city: String, completion: @escaping (CityItem?) -> Void) {
         if let cityItem = database.get(CityItem.self, predicate: { $0.cityName == city }) {
             completion(cityItem)
+        } else {
+            completion(nil)
         }
     }
 

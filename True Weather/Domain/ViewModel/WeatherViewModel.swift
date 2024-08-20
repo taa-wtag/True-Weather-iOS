@@ -10,6 +10,7 @@ protocol WeatherViewModelDelegate: AnyObject {
 class WeatherViewModel {
     private let cityService: CityServiceProtocol
     private let weatherService: WeatherServiceProtocol
+    private let locationService: LocationServiceProtocol
 
     private var isFirstTimeLoad = true
 
@@ -33,6 +34,7 @@ class WeatherViewModel {
     var currentWeather: HourlyWeatherItem? {
         didSet {
             delegate?.didUpdateCurrentWeather()
+            delegate?.didUpdateCurrentCity()
         }
     }
 
@@ -47,13 +49,16 @@ class WeatherViewModel {
     weak var delegate: WeatherViewModelDelegate?
 
     init(
-        cityService: CityService = CityService.shared,
-        weatherService: WeatherService = WeatherService.shared,
+        cityService: CityServiceProtocol = CityService.shared,
+        weatherService: WeatherServiceProtocol = WeatherService.shared,
+        locationService: LocationServiceProtocol = LocationService.shared,
         delegate: WeatherViewModelDelegate? = nil
     ) {
         self.cityService = cityService
         self.weatherService = weatherService
+        self.locationService = locationService
         self.delegate = delegate
+        (locationService as? LocationService)?.delegate = self
     }
 
     func getAllCities() {
@@ -106,11 +111,14 @@ class WeatherViewModel {
                 self?.dailyWeatherList = dailyWeatherList.sorted {
                     $0.dateEpoch ?? Date(timeIntervalSince1970: 0) < $1.dateEpoch ?? Date(timeIntervalSince1970: 0)
                 }
-                self?.hourlyWeatherList =  hourlyWeatherList.sorted {
+                let hourlyWeatherList =  hourlyWeatherList.sorted {
                     $0.timeEpoch ?? Date(timeIntervalSince1970: 0) < $1.timeEpoch ?? Date(timeIntervalSince1970: 0)
-                } .filter {
+                }
+                let firstTime = DateUtil.getHoursFromTimeString(from: hourlyWeatherList.first?.timeString ?? "") ?? 0
+                self?.hourlyWeatherList = hourlyWeatherList.filter {
                     if let time = $0.timeEpoch?.timeIntervalSinceNow {
-                        return time > 0 && time < 86400
+                        let hourInt = DateUtil.getHoursFromTimeString(from: $0.timeString ?? "") ?? -1
+                        return time > 0 && time < 86400 && (hourInt >= firstTime || hourInt == 0)
                     } else {
                         return false
                     }
@@ -166,6 +174,30 @@ class WeatherViewModel {
                     .sorted { DateUtil.dateComparator($0, $1) }
                     .filter { DateUtil.isFutureDate($0) }
                 completion(hourlyWeatherList, dailyWeatherList)
+            }
+        }
+    }
+
+    func getCurrentLocation() {
+        locationService.requestAuthorization()
+        if locationService.isAuthorized() {
+            locationService.requestLocationOnce()
+        }
+    }
+}
+
+extension WeatherViewModel: LocationServiceDelegate {
+    func didFetchLocation(latitude: Double, longitude: Double) {
+        cityService.getCityNameFromLocation(from: (latitude: latitude, longitude: longitude)) { [weak self] _, data in
+            let cityName = "\(data?.first?.cityName ?? ""), \(data?.first?.countryName ?? "")"
+            self?.cityService.getCity(name: cityName) { cityItem in
+                if cityItem == nil {
+                    let city = CityItem()
+                    city.cityName = cityName
+                    city.backgroundColor = Int.random(in: 0..<6)
+                    self?.cityService.addCity(city: city)
+                    self?.getAllCities()
+                }
             }
         }
     }

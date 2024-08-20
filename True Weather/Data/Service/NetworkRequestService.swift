@@ -1,11 +1,16 @@
 import Foundation
 import Alamofire
+import AlamofireImage
 
 protocol NetworkRequestServiceProtocol {
     func request<T: Decodable> (
         _ request: URLRequestConvertible,
         responseType: T.Type,
         completion: @escaping(_ error: String?, _ data: T?) -> Void
+    )
+    func request (
+        _ request: String,
+        completion: @escaping(_ error: String?, _ data: Image?) -> Void
     )
 }
 
@@ -28,14 +33,28 @@ class NetworkRequestService: NetworkRequestServiceProtocol {
         }
 
         AF.request(request).responseDecodable(of: responseType) { response in
-            self.handleResponse(request: request, response: response) { error, data in
+            self.handleResponse(response: response) { error, data in
+                completion(error, data)
+            }
+        }
+    }
+
+    func request(_ request: String, completion: @escaping (String?, Image?) -> Void) {
+
+        guard NetworkState.isConnected() else {
+            let error = "No Connection"
+            completion(error, nil)
+            return
+        }
+
+        AF.request(request).responseImage { response in
+            self.handleResponse(response: response) { error, data in
                 completion(error, data)
             }
         }
     }
 
     private func handleResponse<T> (
-        request: URLRequestConvertible,
         response: DataResponse<T, AFError>,
         completion: @escaping( _ error: String?, _ data: T? ) -> Void
     ) {

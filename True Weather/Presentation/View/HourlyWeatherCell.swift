@@ -14,9 +14,9 @@ class HourlyWeatherCell: UICollectionViewCell {
 
     func configure (weather: HourlyWeatherItem, isFirst: Bool = false) {
         timeLabel.text = weather.timeString?.components(separatedBy: " ").last
-        conditionLabel.text = weather.conditionText
-        if let imageData = weather.image {
-            iconImageView.image = UIImage(data: imageData)
+        conditionLabel.text = WeatherUtil.getShortCondition(from: weather.conditionText ?? "")
+        WeatherIconUseCase().loadWeatherIcon(from: weather.imageUrl ?? "") { [weak self] data in
+            self?.iconImageView.image = UIImage(data: data)
         }
         if isFirst {
             timeLabel.textColor = UIColor(named: Constants.Colors.DeepGolden)

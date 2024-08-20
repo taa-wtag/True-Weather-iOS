@@ -43,4 +43,8 @@ struct DateUtil {
     static func isFutureDate (_ weather: DailyWeatherItem) -> Bool {
         return weather.dateEpoch?.timeIntervalSinceNow ?? -1.0 > 0.0
     }
+
+    static func getHoursFromTimeString(from date: String) -> Int? {
+        return Int(date.dropFirst(11).dropLast(3).description)
+    }
 }

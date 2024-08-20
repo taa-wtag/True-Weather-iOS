@@ -12,6 +12,7 @@
 		463153912C6CA9B500CEC145 /* CityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463153902C6CA9B500CEC145 /* CityViewModel.swift */; };
 		4663700E2C58F47100DC10D9 /* CityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4663700D2C58F47100DC10D9 /* CityViewController.swift */; };
 		466370122C58FC9500DC10D9 /* CityMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466370112C58FC9500DC10D9 /* CityMapper.swift */; };
+		4664C1852C743C2C00603BAF /* MyFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4664C1842C743C2C00603BAF /* MyFileManager.swift */; };
 		4668ED542C55E53600B7FBF1 /* CitySuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4668ED532C55E53600B7FBF1 /* CitySuggestion.swift */; };
 		4668ED562C55E60D00B7FBF1 /* PlaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4668ED552C55E60D00B7FBF1 /* PlaceData.swift */; };
 		4668ED582C55E69000B7FBF1 /* CountryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4668ED572C55E69000B7FBF1 /* CountryData.swift */; };
@@ -60,6 +61,9 @@
 		46737B1A2C61103200801AF6 /* HeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46737B182C61103200801AF6 /* HeaderTableViewCell.swift */; };
 		46737B1B2C61103200801AF6 /* HeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46737B192C61103200801AF6 /* HeaderTableViewCell.xib */; };
 		4674398A2C71AF8300514DB0 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467439892C71AF8300514DB0 /* LocationService.swift */; };
+		4674398F2C71CCEC00514DB0 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 4674398E2C71CCEC00514DB0 /* AlamofireImage */; };
+		468863452C72ED1B00FA8197 /* WeatherIconService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468863442C72ED1B00FA8197 /* WeatherIconService.swift */; };
+		4688634C2C72F14800FA8197 /* WeatherIconUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4688634B2C72F14800FA8197 /* WeatherIconUseCase.swift */; };
 		469A0B282C69B58B0064B91F /* CitySearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469A0B272C69B58B0064B91F /* CitySearchViewModel.swift */; };
 		469A0B2A2C6A0C9F0064B91F /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469A0B292C6A0C9F0064B91F /* DateUtil.swift */; };
 		469A0B2C2C6A0EFC0064B91F /* ViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469A0B2B2C6A0EFC0064B91F /* ViewModelFactory.swift */; };
@@ -72,6 +76,7 @@
 		463153902C6CA9B500CEC145 /* CityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityViewModel.swift; sourceTree = "<group>"; };
 		4663700D2C58F47100DC10D9 /* CityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityViewController.swift; sourceTree = "<group>"; };
 		466370112C58FC9500DC10D9 /* CityMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityMapper.swift; sourceTree = "<group>"; };
+		4664C1842C743C2C00603BAF /* MyFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFileManager.swift; sourceTree = "<group>"; };
 		4668ED532C55E53600B7FBF1 /* CitySuggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySuggestion.swift; sourceTree = "<group>"; };
 		4668ED552C55E60D00B7FBF1 /* PlaceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceData.swift; sourceTree = "<group>"; };
 		4668ED572C55E69000B7FBF1 /* CountryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryData.swift; sourceTree = "<group>"; };
@@ -120,6 +125,8 @@
 		46737B182C61103200801AF6 /* HeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTableViewCell.swift; sourceTree = "<group>"; };
 		46737B192C61103200801AF6 /* HeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderTableViewCell.xib; sourceTree = "<group>"; };
 		467439892C71AF8300514DB0 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		468863442C72ED1B00FA8197 /* WeatherIconService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherIconService.swift; sourceTree = "<group>"; };
+		4688634B2C72F14800FA8197 /* WeatherIconUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherIconUseCase.swift; sourceTree = "<group>"; };
 		469A0B272C69B58B0064B91F /* CitySearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySearchViewModel.swift; sourceTree = "<group>"; };
 		469A0B292C6A0C9F0064B91F /* DateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
 		469A0B2B2C6A0EFC0064B91F /* ViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelFactory.swift; sourceTree = "<group>"; };
@@ -133,6 +140,7 @@
 			files = (
 				466C455B2C535B7700777A69 /* RealmSwift in Frameworks */,
 				466C45582C535AF200777A69 /* Alamofire in Frameworks */,
+				4674398F2C71CCEC00514DB0 /* AlamofireImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +176,7 @@
 				4668ED712C56398D00B7FBF1 /* Parameterizable.swift */,
 				466370112C58FC9500DC10D9 /* CityMapper.swift */,
 				46102F562C5B666900CFA20F /* DatabaseManager.swift */,
+				4664C1842C743C2C00603BAF /* MyFileManager.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -231,6 +240,7 @@
 		466C455F2C53933300777A69 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				4688634A2C72F12300FA8197 /* UseCase */,
 				466C45622C53934D00777A69 /* Utility */,
 				466C45612C53934600777A69 /* ViewModel */,
 			);
@@ -317,6 +327,7 @@
 				4668ED6F2C56380200B7FBF1 /* NetworkRequestService.swift */,
 				467359B92C5F24B300A98FF5 /* CityService.swift */,
 				467439892C71AF8300514DB0 /* LocationService.swift */,
+				468863442C72ED1B00FA8197 /* WeatherIconService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -354,6 +365,14 @@
 			path = weather;
 			sourceTree = "<group>";
 		};
+		4688634A2C72F12300FA8197 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				4688634B2C72F14800FA8197 /* WeatherIconUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -374,6 +393,7 @@
 			packageProductDependencies = (
 				466C45572C535AF200777A69 /* Alamofire */,
 				466C455A2C535B7700777A69 /* RealmSwift */,
+				4674398E2C71CCEC00514DB0 /* AlamofireImage */,
 			);
 			productName = "True Weather";
 			productReference = 466C453F2C535A0000777A69 /* True Weather.app */;
@@ -406,6 +426,7 @@
 			packageReferences = (
 				466C45562C535AF200777A69 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				466C45592C535B7700777A69 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				4674398D2C71CCEC00514DB0 /* XCRemoteSwiftPackageReference "AlamofireImage" */,
 			);
 			productRefGroup = 466C45402C535A0000777A69 /* Products */;
 			projectDirPath = "";
@@ -494,9 +515,12 @@
 				4668ED642C56186500B7FBF1 /* MapboxAPIRouter.swift in Sources */,
 				469A0B2C2C6A0EFC0064B91F /* ViewModelFactory.swift in Sources */,
 				466C456D2C53963000777A69 /* CityItem.swift in Sources */,
+				468863452C72ED1B00FA8197 /* WeatherIconService.swift in Sources */,
 				466C45432C535A0000777A69 /* AppDelegate.swift in Sources */,
+				4664C1852C743C2C00603BAF /* MyFileManager.swift in Sources */,
 				467359BA2C5F24B300A98FF5 /* CityService.swift in Sources */,
 				4631538F2C6C70E700CEC145 /* WeatherUtil.swift in Sources */,
+				4688634C2C72F14800FA8197 /* WeatherIconUseCase.swift in Sources */,
 				466BEACC2C6B10EF0029602D /* NavigationController.swift in Sources */,
 				4668ED5A2C55E6D700B7FBF1 /* SearchResponse.swift in Sources */,
 				466370122C58FC9500DC10D9 /* CityMapper.swift in Sources */,
@@ -585,7 +609,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -642,7 +666,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -664,11 +688,14 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "True Weather/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "True Weather";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app needs to know your current location to use this feature.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app needs to know your current location to use this feature.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -694,11 +721,14 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "True Weather/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "True Weather";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app needs to know your current location to use this feature.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app needs to know your current location to use this feature.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -752,6 +782,14 @@
 				kind = branch;
 			};
 		};
+		4674398D2C71CCEC00514DB0 /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/AlamofireImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.3.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -764,6 +802,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 466C45592C535B7700777A69 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		4674398E2C71CCEC00514DB0 /* AlamofireImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4674398D2C71CCEC00514DB0 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
+			productName = AlamofireImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

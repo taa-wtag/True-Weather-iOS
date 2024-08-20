@@ -25,8 +25,8 @@ class CityViewModel {
     weak var delegate: CityViewModelDelegate?
 
     init(
-        cityService: CityService = CityService.shared,
-        weatherService: WeatherService = WeatherService.shared,
+        cityService: CityServiceProtocol = CityService.shared,
+        weatherService: WeatherServiceProtocol = WeatherService.shared,
         delegate: CityViewModelDelegate? = nil
     ) {
         self.cityService = cityService

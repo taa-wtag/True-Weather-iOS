@@ -43,6 +43,7 @@ class WeatherViewController: UIViewController {
     }
 
     @IBAction func getLocationButtonAction(_ sender: UIBarButtonItem) {
+        viewModel?.getCurrentLocation()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
