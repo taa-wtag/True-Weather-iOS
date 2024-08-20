@@ -26,3 +26,12 @@ jobs:
         uses: norio-nomura/action-swiftlint@3.2.1
         env:
           WORKING_DIRECTORY: Source
+
+cyclomatic_complexity:
+  warning: 20
+  error: 25
+  ignores_case_statements: true
+
+function_body_length:
+  warning: 150
+  error: 200
