@@ -36,10 +36,8 @@ class LocationService: NSObject, LocationServiceProtocol {
     }
 
     func requestLocationOnce() {
-        if isAuthorized() {
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.requestLocation()
-        }
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestLocation()
     }
 }
 
@@ -52,5 +50,14 @@ extension LocationService: CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
         print(error.localizedDescription)
+    }
+
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch manager.authorizationStatus {
+        case .authorizedAlways, .authorizedWhenInUse:
+            requestLocationOnce()
+        default:
+            return
+        }
     }
 }

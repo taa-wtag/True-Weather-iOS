@@ -49,8 +49,12 @@ class CitySearchViewModel {
     }
 
     private func citySuggestionsToCityList(suggestions: [CitySuggestion]) -> [String] {
-        return suggestions.map { (city) in
-            return "\(city.cityName ?? ""), \(city.placeData?.countryData?.countryName ?? "")"
+        return suggestions.compactMap { (city) in
+            if let cityName = city.cityName, let countryName = city.placeData?.countryData?.countryName {
+                return "\(cityName), \(countryName)"
+            } else {
+                return nil
+            }
         }
     }
 }

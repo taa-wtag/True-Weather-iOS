@@ -1,5 +1,4 @@
 import Foundation
-import RealmSwift
 
 protocol WeatherServiceProtocol {
     func getCurrentWeatherFromRemote(
@@ -15,7 +14,7 @@ protocol WeatherServiceProtocol {
 
     func getWeatherFromCache(
         in city: String,
-        completion: @escaping (List<HourlyWeatherItem>, List<DailyWeatherItem>) -> Void
+        completion: @escaping ([HourlyWeatherItem], [DailyWeatherItem]) -> Void
     )
 
     func  addWeather <T>(to city: String, weather: T)
@@ -65,15 +64,15 @@ class WeatherService: WeatherServiceProtocol {
 
     func getWeatherFromCache(
         in city: String,
-        completion: @escaping (List<HourlyWeatherItem>, List<DailyWeatherItem>) -> Void
+        completion: @escaping ([HourlyWeatherItem], [DailyWeatherItem]) -> Void
     ) {
         if let item = getCity(city: city) {
             let oldWeatherItems = WeatherUtil.getOldWeatherItems(from: item)
 //            database.delete(oldWeatherItems.0)
 //            database.delete(oldWeatherItems.1)
-            completion(item.weatherEveryHour, item.weatherEveryDay)
+            completion(Array(item.weatherEveryHour), Array(item.weatherEveryDay))
         } else {
-            completion(List<HourlyWeatherItem>(), List<DailyWeatherItem>())
+            completion([], [])
         }
     }
 
