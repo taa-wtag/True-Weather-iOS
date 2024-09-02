@@ -2,7 +2,7 @@ import Foundation
 import RealmSwift
 
 struct WeatherUtil {
-    static func getCurrentWeather(from data: List<HourlyWeatherItem>) -> HourlyWeatherItem? {
+    static func getCurrentWeather(from data: [HourlyWeatherItem]) -> HourlyWeatherItem? {
         return data
             .sorted { DateUtil.dateComparator($0, $1) }
             .first { DateUtil.isFutureDate($0) }

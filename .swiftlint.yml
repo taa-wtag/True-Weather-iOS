@@ -1,0 +1,8 @@
+cyclomatic_complexity:
+  warning: 20
+  error: 25
+  ignores_case_statements: true
+
+function_body_length:
+  warning: 150
+  error: 200

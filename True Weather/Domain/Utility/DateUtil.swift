@@ -44,7 +44,7 @@ struct DateUtil {
         return weather.dateEpoch?.timeIntervalSinceNow ?? -1.0 > 0.0
     }
 
-    static func getHoursFromTimeString(from date: String) -> Int? {
-        return Int(date.dropFirst(11).dropLast(3).description)
+    static func getHoursFromTimeString(from date: String?) -> Int? {
+        return Int(date?.dropFirst(11).dropLast(3).description ?? "")
     }
 }

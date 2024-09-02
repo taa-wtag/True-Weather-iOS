@@ -10,13 +10,15 @@ class CityViewModel {
 
     var isDeleteButtonHidden = true
 
-    var cityList: [CityItem] = [] {
+    private (set) var errorMessage = ""
+
+    private(set) var cityList: [CityItem] = [] {
         didSet {
             delegate?.didFinishLoadingCities()
         }
     }
 
-    var currentWeatherList: [String: HourlyWeatherItem] = [:] {
+    private(set) var currentWeatherList: [String: HourlyWeatherItem] = [:] {
         didSet {
             delegate?.didFinishLoadingCities()
         }
@@ -39,8 +41,10 @@ class CityViewModel {
         cityService.getAllCities { [weak self] cities in
             self?.cityList = cities
             cities.forEach {
-                self?.currentWeatherList.updateValue(HourlyWeatherItem(), forKey: $0.cityName ?? "")
-                self?.loadCurrentWeatherData(city: $0)
+                if let cityName = $0.cityName {
+                    self?.currentWeatherList.updateValue(HourlyWeatherItem(), forKey: cityName)
+                    self?.loadCurrentWeatherData(city: $0)
+                }
             }
         }
     }
@@ -56,7 +60,7 @@ class CityViewModel {
 
     private func loadCurrentWeatherData(city: CityItem) {
         loadCurrentWeatherFromCache(city: city) { [weak self] data in
-            if !DateUtil.isFutureDate(data) {
+            if data?.timeEpoch?.timeIntervalSinceNow ?? 500 > 300 {
                 self?.fetchCurrentWeatherFromRemote(city: city) { [weak self] _ in
                     self?.loadCurrentWeatherData(city: city)
                 }
@@ -68,11 +72,13 @@ class CityViewModel {
 
     private func fetchCurrentWeatherFromRemote(city: CityItem, completion: @escaping ((HourlyWeatherItem) -> Void)) {
         if let cityName = city.cityName {
-            weatherService.getCurrentWeatherFromRemote(in: cityName) { [weak self] _, data in
+            weatherService.getCurrentWeatherFromRemote(in: cityName) { [weak self] error, data in
                 if let weather = data {
                     let currentWeather = WeatherUtil.getHourlyWeatherItem(from: weather)
                     self?.weatherService.addWeather(to: cityName, weather: currentWeather)
                     completion(currentWeather)
+                } else if let error = error {
+                    self?.errorMessage = error
                 }
             }
         }

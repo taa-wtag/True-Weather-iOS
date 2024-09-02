@@ -10,7 +10,12 @@ class ViewModelFactory {
             }
         case is WeatherViewController:
             if let controller = viewController as? WeatherViewController {
-                controller.viewModel = WeatherViewModel(delegate: controller)
+                controller.viewModel = WeatherViewModel(
+                    cityService: CityService.shared,
+                    weatherService: WeatherService.shared,
+                    locationService: LocationService.shared,
+                    delegate: controller
+                )
             }
         case is CityViewController:
             if let controller = viewController as? CityViewController {

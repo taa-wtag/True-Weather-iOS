@@ -28,4 +28,32 @@ struct DailyWeatherData: Decodable {
         case minTempC = "mintemp_c"
         case minTempF = "mintemp_f"
     }
+
+    init(
+        weatherCondition: WeatherCondition? = nil,
+        avgTempC: Double? = nil,
+        avgTempF: Double? = nil,
+        avgHumidity: Int? = nil,
+        maxTempC: Double? = nil,
+        maxTempF: Double? = nil,
+        minTempC: Double? = nil,
+        minTempF: Double? = nil,
+        avgVisKm: Double? = nil,
+        avgVisMiles: Double? = nil,
+        maxWindKph: Double? = nil,
+        maxWindMph: Double? = nil
+    ) {
+    self.weatherCondition = weatherCondition
+    self.avgTempC = avgTempC
+    self.avgTempF = avgTempF
+    self.avgHumidity = avgHumidity
+    self.maxTempC = maxTempC
+    self.maxTempF = maxTempF
+    self.minTempC = minTempC
+    self.minTempF = minTempF
+    self.avgVisKm = avgVisKm
+    self.avgVisMiles = avgVisMiles
+    self.maxWindKph = maxWindKph
+    self.maxWindMph = maxWindMph
+    }
 }

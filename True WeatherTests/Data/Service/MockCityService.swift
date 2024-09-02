@@ -3,19 +3,19 @@ import Foundation
 
 class MockCityService: CityServiceProtocol {
     var errorMessage: String?
-    var cityDataList: [CityData]?
-    var suggestionList: [CitySuggestion]?
-    var cityList: [CityItem]?
+    var cityDataList: [CityData] = []
+    var suggestionList: [CitySuggestion] = []
+    var cityList: [CityItem] = []
     var city: CityItem?
-    var addCityCalled = false
     var hasError = false
+    var hasCityInCache = false
 
     func searchForPlaces(
         with query: String,
         completion: @escaping (String?, [CitySuggestion]?) -> Void
     ) {
          if !hasError {
-            completion(nil, suggestionList!)
+            completion(nil, suggestionList)
         } else {
             completion(errorMessage!, nil)
         }
@@ -26,34 +26,36 @@ class MockCityService: CityServiceProtocol {
         completion: @escaping (String?, [CityData]?) -> Void
     ) {
         if !hasError {
-           completion(nil, cityDataList!)
+           completion(nil, cityDataList)
        } else {
            completion(errorMessage!, nil)
        }
     }
 
     func addCity(city: CityItem) {
-        addCityCalled = true
+        self.city = city
     }
 
     func deleteCity(city: String, completion: @escaping () -> Void) {
-        cityList = []
-        completion()
+        if !hasError {
+            cityList = []
+            completion()
+       }
     }
 
     func getCity(name city: String, completion: @escaping (CityItem?) -> Void) {
-        if !hasError {
-           completion(nil)
+        if hasCityInCache {
+            completion(self.city!)
        } else {
-           completion(self.city!)
+           completion(nil)
        }
     }
 
     func getAllCities(completion: @escaping ([CityItem]) -> Void) {
         if !hasError {
-           completion([])
+           completion(cityList)
        } else {
-           completion(cityList!)
+           completion([])
        }
     }
 }

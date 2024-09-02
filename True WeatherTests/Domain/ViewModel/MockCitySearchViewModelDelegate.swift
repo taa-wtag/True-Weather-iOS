@@ -1,4 +1,3 @@
-import Foundation
 @testable import True_Weather
 
 class MockCitySearchViewModelDelegate: CitySearchViewModelDelegate {

@@ -40,6 +40,7 @@ class WeatherViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         viewModel?.getAllCities()
+        viewModel?.setCurrentCity(index: 0)
     }
 
     @IBAction func getLocationButtonAction(_ sender: UIBarButtonItem) {
@@ -54,17 +55,12 @@ class WeatherViewController: UIViewController {
 extension WeatherViewController: UICollectionViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let cellIndex = cityCollectionView.scrollToNearestVisibleCollectionViewCell()
-        if cellIndex != -1 {
-            viewModel?.currentCity = viewModel?.cityList[cellIndex]
-        }
+        viewModel?.setCurrentCity(index: cellIndex)
     }
 
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
-            let cellIndex = cityCollectionView.scrollToNearestVisibleCollectionViewCell()
-            if cellIndex != -1 {
-                viewModel?.currentCity = viewModel?.cityList[cellIndex]
-            }
+            _ = cityCollectionView.scrollToNearestVisibleCollectionViewCell()
         }
     }
 }
@@ -87,7 +83,7 @@ extension WeatherViewController: UICollectionViewDataSource {
         if let city = viewModel?.cityList[indexPath.row] {
             (cell as? CityPageCell)?.configure(
                 with: city,
-                weather: WeatherUtil.getCurrentWeather(from: city.weatherEveryHour) ?? HourlyWeatherItem()
+                weather: WeatherUtil.getCurrentWeather(from: Array(city.weatherEveryHour)) ?? HourlyWeatherItem()
             )
         }
         return cell
@@ -180,7 +176,6 @@ extension UICollectionView {
            let cellWidth = cell.bounds.size.width
            let cellCenter = Float(cell.frame.origin.x + cellWidth / 2)
 
-           // Now calculate closest cell
            let distance: Float = fabsf(visibleCenterPositionOfScrollView - cellCenter)
            if distance < closestDistance {
                closestDistance = distance
@@ -246,6 +241,6 @@ extension WeatherViewController {
     }
 
     private var hourlyCollectionHeight: CGFloat {
-        return floor(120 * Constants.sizeMagnifier)
+        return floor(125 * Constants.sizeMagnifier)
     }
 }

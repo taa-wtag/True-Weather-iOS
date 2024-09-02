@@ -60,4 +60,34 @@ struct HourlyWeatherData: Decodable, Identifiable {
                 self.timeEpoch = try? container.decode(Int.self, forKey: .alternateTimeEpoch)
             }
         }
+
+    init(
+        weatherCondition: WeatherCondition? = nil,
+        feelsLikeC: Double? = nil,
+        feelsLikeF: Double? = nil,
+        humidity: Int? = nil,
+        isDay: Int? = nil,
+        tempC: Double? = nil,
+        tempF: Double? = nil,
+        timeString: String? = nil,
+        timeEpoch: Int? = nil,
+        visKm: Double? = nil,
+        visMiles: Double? = nil,
+        windKph: Double? = nil,
+        windMph: Double? = nil
+    ) {
+    self.weatherCondition = weatherCondition
+    self.feelsLikeC = feelsLikeC
+    self.feelsLikeF = feelsLikeF
+    self.humidity = humidity
+    self.isDay = isDay
+    self.tempC = tempC
+    self.tempF = tempF
+    self.timeString = timeString
+    self.timeEpoch = timeEpoch
+    self.visKm = visKm
+    self.visMiles = visMiles
+    self.windKph = windKph
+    self.windMph = windMph
+    }
 }
