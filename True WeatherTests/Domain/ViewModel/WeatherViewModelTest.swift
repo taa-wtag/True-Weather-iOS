@@ -92,7 +92,7 @@ final class WeatherViewModelTest: XCTestCase {
         mockWeatherService.hasCachedWeather = true
         mockWeatherService.hourlyWeatherList = mockDataHelper.hourlyWeatherList()
 
-        sut.loadCurrentWeatherData(in: mockDataHelper?.city())
+        sut.loadCurrentWeatherData(in: mockDataHelper.city())
 
         XCTAssertEqual(sut.currentWeather?.timeString, "2020-01-01 02:00")
         XCTAssertEqual(mockWeatherService.addWeatherCount, 0)
@@ -104,7 +104,7 @@ final class WeatherViewModelTest: XCTestCase {
         mockWeatherService.currentWeatherData = mockDataHelper.currentWeatherData()
         mockWeatherService.newCurrentWeather = mockDataHelper.currentWeather()
 
-        sut.loadCurrentWeatherData(in: mockDataHelper?.city())
+        sut.loadCurrentWeatherData(in: mockDataHelper.city())
 
         XCTAssertEqual(sut.currentWeather?.timeString, "2020-01-01 02:00")
         XCTAssertEqual(mockWeatherService.addWeatherCount, 1)
@@ -116,7 +116,7 @@ final class WeatherViewModelTest: XCTestCase {
         mockWeatherService.currentWeatherData = mockDataHelper.currentWeatherData()
         mockWeatherService.newCurrentWeather = mockDataHelper.currentWeather()
 
-        sut.loadCurrentWeatherData(in: mockDataHelper?.city())
+        sut.loadCurrentWeatherData(in: mockDataHelper.city())
 
         XCTAssertEqual(sut.currentWeather?.timeString, "2020-01-01 02:00")
         XCTAssertEqual(mockWeatherService.addWeatherCount, 1)
@@ -128,7 +128,7 @@ final class WeatherViewModelTest: XCTestCase {
         mockWeatherService.hourlyWeatherList = mockDataHelper.hourlyWeatherList()
         mockWeatherService.currentWeatherData = mockDataHelper.currentWeatherData()
 
-        sut.loadCurrentWeatherData(in: mockDataHelper?.city())
+        sut.loadCurrentWeatherData(in: mockDataHelper.city())
 
         XCTAssertEqual(sut.currentWeather?.timeString, "2020-01-01 02:00")
         XCTAssertEqual(mockWeatherService.addWeatherCount, 1)
@@ -140,7 +140,7 @@ final class WeatherViewModelTest: XCTestCase {
         mockWeatherService.hasError = true
         mockWeatherService.errorMessage = "Error"
 
-        sut.loadCurrentWeatherData(in: mockDataHelper?.city())
+        sut.loadCurrentWeatherData(in: mockDataHelper.city())
 
         XCTAssertNil(sut.currentWeather)
         XCTAssertEqual(mockWeatherService.addWeatherCount, 0)
@@ -153,7 +153,7 @@ final class WeatherViewModelTest: XCTestCase {
         mockWeatherService.hourlyWeatherList = mockDataHelper.hourlyWeatherList()
         mockWeatherService.dailyWeatherList = mockDataHelper.dailyWeatherList()
 
-        sut.loadForecastWeatherData(in: mockDataHelper?.city())
+        sut.loadForecastWeatherData(in: mockDataHelper.city())
 
         XCTAssertEqual(sut.hourlyWeatherList.count, 23)
         XCTAssertEqual(sut.dailyWeatherList.count, 9)
@@ -166,7 +166,7 @@ final class WeatherViewModelTest: XCTestCase {
         mockWeatherService.hourlyWeatherList = mockDataHelper.hourlyWeatherList()
         mockWeatherService.dailyWeatherList = mockDataHelper.dailyWeatherList()
 
-        sut.loadForecastWeatherData(in: mockDataHelper?.city())
+        sut.loadForecastWeatherData(in: mockDataHelper.city())
 
         XCTAssertEqual(sut.hourlyWeatherList[0].timeString, "2020-01-01 02:00")
         for count in 1 ..< 23 {
@@ -180,7 +180,7 @@ final class WeatherViewModelTest: XCTestCase {
         mockWeatherService.hasCachedWeather = true
         mockWeatherService.dailyWeatherList = mockDataHelper.dailyWeatherList()
 
-        sut.loadForecastWeatherData(in: mockDataHelper?.city())
+        sut.loadForecastWeatherData(in: mockDataHelper.city())
 
         for count in 1 ..< 10 {
             XCTAssertEqual(sut.dailyWeatherList[count - 1].dateString, "2020-01-0\(count)")
@@ -195,7 +195,7 @@ final class WeatherViewModelTest: XCTestCase {
         mockWeatherService.currentWeatherData = mockDataHelper.currentWeatherData()
         mockWeatherService.forecastWeatherData = mockDataHelper.forecastWeatherData()
 
-        sut.loadForecastWeatherData(in: mockDataHelper?.city())
+        sut.loadForecastWeatherData(in: mockDataHelper.city())
 
         XCTAssertEqual(sut.hourlyWeatherList.count, 23)
         XCTAssertEqual(sut.dailyWeatherList.count, 9)
@@ -209,7 +209,7 @@ final class WeatherViewModelTest: XCTestCase {
         mockWeatherService.currentWeatherData = mockDataHelper.currentWeatherData()
         mockWeatherService.forecastWeatherData = mockDataHelper.forecastWeatherData()
 
-        sut.loadForecastWeatherData(in: mockDataHelper?.city())
+        sut.loadForecastWeatherData(in: mockDataHelper.city())
 
         XCTAssertEqual(sut.hourlyWeatherList.count, 0)
         XCTAssertEqual(sut.dailyWeatherList.count, 0)

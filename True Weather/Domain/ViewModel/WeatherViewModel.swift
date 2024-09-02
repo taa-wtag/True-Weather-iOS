@@ -73,7 +73,7 @@ class WeatherViewModel {
         }
     }
 
-    func loadCurrentWeatherData(in city: CityItem? = nil) {
+    func loadCurrentWeatherData(in city: CityItem) {
         loadCurrentWeatherFromCache(in: city) { [weak self] data in
             if data?.timeEpoch?.timeIntervalSinceNow ?? 500 > 300 {
                 self?.fetchCurrentWeatherFromRemote(in: city) { [weak self] _ in
@@ -86,10 +86,10 @@ class WeatherViewModel {
     }
 
     private func fetchCurrentWeatherFromRemote(
-        in city: CityItem? = nil,
+        in city: CityItem,
         completion: @escaping (HourlyWeatherItem) -> Void
     ) {
-        if let city = city?.cityName ?? currentCity?.cityName {
+        if let city = city.cityName {
             weatherService.getCurrentWeatherFromRemote(in: city) { [weak self] errorMessage, data in
                 if let weather = data {
                     let currentWeather = WeatherUtil.getHourlyWeatherItem(from: weather)
@@ -103,17 +103,17 @@ class WeatherViewModel {
     }
 
     private func loadCurrentWeatherFromCache(
-        in city: CityItem? = nil,
+        in city: CityItem,
         completion: @escaping (HourlyWeatherItem?) -> Void
     ) {
-        if let city = city?.cityName ?? currentCity?.cityName {
+        if let city = city.cityName {
             weatherService.getWeatherFromCache(in: city) { data, _ in
                 completion(WeatherUtil.getCurrentWeather(from: data))
             }
         }
     }
 
-    func loadForecastWeatherData(in city: CityItem? = nil) {
+    func loadForecastWeatherData(in city: CityItem) {
         loadForecastWeatherFromCache(in: city) { [weak self] hourlyData, dailyData in
             if let dailyWeatherList = dailyData,
                let hourlyWeatherList = hourlyData,
@@ -139,10 +139,10 @@ class WeatherViewModel {
     }
 
     private func fetchForecastWeatherFromRemote(
-        in city: CityItem? = nil,
+        in city: CityItem,
         completion: @escaping ([HourlyWeatherItem], [DailyWeatherItem]) -> Void
     ) {
-        if let city = city?.cityName ?? currentCity?.cityName {
+        if let city = city.cityName {
             weatherService.getForecastWeatherFromRemote(
                 in: city, days: Constants.Weather.ForecastMaxDays
             ) { [weak self] _, currentData, forecastData in
@@ -170,10 +170,10 @@ class WeatherViewModel {
     }
 
     private func loadForecastWeatherFromCache(
-        in city: CityItem? = nil,
+        in city: CityItem,
         completion: @escaping ([HourlyWeatherItem]?, [DailyWeatherItem]?) -> Void
     ) {
-        if let city = city?.cityName ?? currentCity?.cityName {
+        if let city = city.cityName {
             weatherService.getWeatherFromCache(in: city) { hourlyData, dailyData in
                 let hourlyWeatherList = hourlyData
                     .sorted { DateUtil.dateComparator($0, $1) }
