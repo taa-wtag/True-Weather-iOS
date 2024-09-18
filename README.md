@@ -1,1 +1,1 @@
-Add the APIKeys.swift file to the SUpportingFiles Folder
+Add the APIKeys.swift file to the SupportingFiles Folder
